@@ -20,7 +20,6 @@
   
   <link href="css/custom.css" rel="stylesheet">
   <!-- jquery -->
-  <script src="js/jquery-3.1.1.min.js" type='text/javascript'></script>
   <script src='vendor/bootstrap/js/bootstrap.min.js' type='text/javascript'></script>  
   
 

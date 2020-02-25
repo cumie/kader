@@ -19,6 +19,10 @@ if(isset($_GET['p'])){
                 if(!file_exists ('pages/anggota.php')) die ($nopage);
 				include "pages/anggota.php";
 				break;
+			case 'anggotadetail':
+                if(!file_exists ('pages/det_anggota.php')) die ($nopage);
+				include "pages/det_anggota.php";
+				break;
 				//end
 
 			default:
