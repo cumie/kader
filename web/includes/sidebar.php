@@ -18,16 +18,23 @@
         <a class="nav-link" href="./">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
-      </li> 
-      
+      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider">
-      
-      <!-- Nav Item - Charts -->
+
+      <!-- Nav Anggota -->
       <li class="nav-item">
         <a class="nav-link" href="anggota">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Anggota</span></a>
+      </li>
+
+      <!-- Nav Pendidikan -->
+      <li class="nav-item">
+        <a class="nav-link" href="pendidikan">
+          <i class="fas fa-fw fa-graduation-cap"></i>
+          <span>Pendidikan</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
@@ -35,8 +42,8 @@
         <a class="nav-link" href="test">
           <i class="fas fa-fw fa-table"></i>
           <span>Test</span></a>
-      </li>
-
+      </li> 
+      
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="pengalaman">
@@ -44,10 +51,10 @@
           <span>Pengalaman</span></a>
       </li>
       
-      
+       
       <!-- Divider -->
       <hr class="sidebar-divider">
-      
+
       <!-- Heading -->
       <div class="sidebar-heading">
         Sample Link
