@@ -23,6 +23,10 @@ if(isset($_GET['p'])){
                 if(!file_exists ('pages/det_anggota.php')) die ($nopage);
 				include "pages/det_anggota.php";
 				break;
+			case 'pengalaman':
+                if(!file_exists ('pages/pengalaman.php')) die ($nopage);
+				include "pages/pengalaman.php";
+				break;
 				//end
 
 			default:

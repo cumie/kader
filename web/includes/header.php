@@ -17,7 +17,9 @@
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  
+<!-- kada mau keluar select mun ni hidup 
+ <link href="vendor/bootstrap/css/bootstrap-select.min.css" rel="stylesheet">
+  -->
   <link href="css/custom.css" rel="stylesheet">
   <!-- jquery -->
   <script src='vendor/bootstrap/js/bootstrap.min.js' type='text/javascript'></script>  
