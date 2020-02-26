@@ -1,1 +1,0 @@
-ALTER TABLE `berita` CHANGE `isi_berita` `isi_berita` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL; 
