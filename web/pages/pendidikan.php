@@ -85,7 +85,50 @@ if(isset($_POST['Hapus'])) {
 <?php
     }
   }
-?>
+  if(isset($_POST['Aktif'])) {
+        $id = $_POST['id'];
+        $id_anggota = $_POST['id_anggota'];
+        $nama = $_POST['nama'];
+
+        $mySql = "UPDATE pendidikan SET status=1 WHERE id=? ";
+          $database = new Database();
+          $db = $database->getConnection();
+          $stmt = $db->prepare($mySql);
+          $stmt->bindParam(1, $id);
+         $stmt->execute();
+         if($stmt) {
+
+      ?>
+     <div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Ubah Status Berhasil!</strong> pendidikan oleh <?php echo $nama; ?> telah di Aktifkan!
+  </div>
+  <?php
+      }
+      }
+
+  if(isset($_POST['Non-Aktif'])) {
+        $id = $_POST['id'];
+        $id_anggota = $_POST['id_anggota'];
+        $nama = $_POST['nama'];
+
+        $mySql = "UPDATE pendidikan SET status=0 WHERE id=? ";
+          $database = new Database();
+          $db = $database->getConnection();
+          $stmt = $db->prepare($mySql);
+          $stmt->bindParam(1, $id);
+         $stmt->execute();
+         if($stmt) {
+
+      ?>
+     <div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Ubah Status Berhasil!</strong> pendidikan oleh <?php echo $nama; ?> telah di Non-Aktifkan!
+  </div>
+  <?php
+      }
+      }
+  ?>
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Data Pendidikan</h1>
     <div class="row">
@@ -103,7 +146,7 @@ if(isset($_POST['Hapus'])) {
     </div>
 
 <?php
-  // include "includes/badge1.php";
+  include "includes/badge1.php";
 ?>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -117,12 +160,13 @@ if(isset($_POST['Hapus'])) {
                       <th>Tempat</th>
                       <th>Jenjang</th>
                       <th>File Bukti</th>
+                      <th>Status</th>
                       <th>Opsi</th>
                     </tr>
                   </thead>
                   <tbody>
                   <?php
-							$mySql = "SELECT pendidikan.* FROM pendidikan ORDER BY updated_at DESC ";
+							$mySql = "SELECT pendidikan.*, anggota.id AS id_anggota, anggota.nama FROM pendidikan LEFT JOIN anggota ON anggota.id=pendidikan.id_anggota ORDER BY updated_at DESC";
 							$database = new Database();
 							$db = $database->getConnection();
 							$stmt = $db->prepare($mySql);
@@ -139,20 +183,37 @@ if(isset($_POST['Hapus'])) {
       							} else {
       								while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
       									extract($row);
+                        if($status==1) { $statusx = 'Aktif';}
+                                  else { $statusx ='Pending';}
                     ?>
                     <tr>
                       <td><?php echo $no++; ?></td>
-                      <td><?php echo $id_anggota; ?></td>
+                      <td>
+                        <form method="POST" action="anggotadetail">
+                        <input type="hidden" name="id" value="<?php echo $id_anggota; ?>" >
+                          <button type="submit"  class="btn btn-link mt-n4 mb-n4 text-left"><?php echo $nama; ?></a></button>
+                        </form>
+                      </td>
                       <td><?php echo $nama_pendidikan; ?></td>
                       <td><?php echo $jenjang_pendidikan; ?></td>
                       <td><?php echo $file_bukti; ?></td>
+                      <td><?php echo $statusx; ?></td>
                       <td>
-                        <a href="#" type="button" class="btn btn-info btn-icon-split"  data-toggle="modal" data-target="#editModal<?php echo $id; ?>">
-          						          <span class="icon "><i class="fas fa-edit"></i></span>
-          							</a>
-          							<a href="#" type="button" class="btn btn-danger btn-icon-split"  data-toggle="modal" data-target="#deleteModal<?php echo $id; ?>">
-          						          <span class="icon "><i class="fas fa-trash"></i></span>
-          							</a>
+                      <?php if($status==1) { ?>
+                         <a href="#" type="button" class="btn btn-warning btn-icon-split"  data-toggle="modal" data-target="#verifModal<?php echo $id; ?>">
+              						  <span class="icon "><i class="fas fa-times"></i></span>
+            						 </a>
+                      <?php } else { ?>
+                          <a href="#" type="button" class="btn btn-success btn-icon-split"  data-toggle="modal" data-target="#verifModal<?php echo $id; ?>">
+            						          <span class="icon "><i class="fas fa-check"></i></span>
+            							</a>
+                      <?php } ?>
+                          <a href="#" type="button" class="btn btn-info btn-icon-split"  data-toggle="modal" data-target="#editModal<?php echo $id; ?>">
+            						          <span class="icon "><i class="fas fa-edit"></i></span>
+            							</a>
+            							<a href="#" type="button" class="btn btn-danger btn-icon-split"  data-toggle="modal" data-target="#deleteModal<?php echo $id; ?>">
+            						  <span class="icon "><i class="fas fa-trash"></i></span>
+            							</a>
                       </td>
                     </tr>
 
@@ -162,7 +223,7 @@ if(isset($_POST['Hapus'])) {
                         <!-- Modal content-->
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="pendidikanModalLabel">Update Data pendidikan</h5>
+                            <h5 class="modal-title" id="pendidikanModalLabel">Update Data pendidikan <?php echo $nama; ?></h5>
                             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">×</span>
                             </button>
@@ -170,12 +231,14 @@ if(isset($_POST['Hapus'])) {
                           <div class="modal-body">
                             <form role="form" action="" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                <input type="hidden" name="id_anggota" value="<?php echo $id_anggota; ?>">
+                                <input type="hidden" name="nama" value="<?php echo $nama; ?>">
                                 <div class="form-group row">
                                   <div class="col-md-6">
                                     <label for="id_anggota" class="col-form-label">Id Anggota</label>
                                       <select class="form-control selectpicker" data-live-search="true" name="id_anggota" id="id_anggota">
                                         <?php
-                                          $mySqlAnggota = "SELECT anggota.id, anggota.nama, pendidikan.id_anggota FROM anggota LEFT JOIN pendidikan ON pendidikan.id_anggota = anggota.id";
+                                          $mySqlAnggota = "SELECT pendidikan.*, anggota.id AS id_anggota, anggota.nama FROM pendidikan LEFT JOIN anggota ON anggota.id=pendidikan.id_anggota ORDER BY updated_at DESC";
                                           $databaseAnggota = new Database();
                                           $dba = $databaseAnggota->getConnection();
                                           $stmtAnggota = $dba->prepare($mySqlAnggota);
@@ -236,7 +299,7 @@ if(isset($_POST['Hapus'])) {
                   <!-- Modal content-->
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="pendidikanModalLabel">Hapus Data pendidikan</h5>
+                      <h5 class="modal-title" id="pendidikanModalLabel">Hapus Data pendidikan <?php echo $nama; ?></h5>
                       <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                       </button>
@@ -244,6 +307,8 @@ if(isset($_POST['Hapus'])) {
                     <div class="modal-body">
                       <form role="form" action="" method="post">
                           <input type="hidden" name="id" value="<?php echo $id; ?>">
+                          <input type="hidden" name="id_anggota" value="<?php echo $id_anggota; ?>">
+                          <input type="hidden" name="nama" value="<?php echo $nama; ?>">
                           <div class="form-group">
                             Yakin menghapus data ini? baik data pendidikan dan data lain yang berkaitan dengan pendidikan ini akan dihapus?
                           </div>
@@ -258,6 +323,42 @@ if(isset($_POST['Hapus'])) {
                 </div>
               </div>
               <!-- end delete modal -->
+              <!-- verif modal -->
+              <div class="modal fade" id="verifModal<?php echo $id; ?>" role="dialog">
+                <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="anggotaModalLabel">Verifikasi Data pendidikan <?php echo $nama; ?></h5>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form role="form" action="" method="post">
+                          <input type="hidden" name="id" value="<?php echo $id; ?>">
+                          <input type="hidden" name="id_anggota" value="<?php echo $id_anggota; ?>">
+                          <input type="hidden" name="nama" value="<?php echo $nama; ?>">
+                          <div class="form-group">
+                            yakin merubah Status Verifikasi menjadi <?php  if($status==1) { echo "Tidak "; } ?>Aktif?
+                          </div>
+
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <?php  if($status==0) {
+                            ?>
+                            <button type="submit" name="Aktif" class="btn btn-success">Aktifkan</button>
+                           <?php
+                            } else { ?>
+                            <button type="submit" name="Non-Aktif" class="btn btn-success">Bekukan</button>
+                            <?php } ?>
+                          </div>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end verif modal -->
                     <?php  }
                             }
                     ?>
