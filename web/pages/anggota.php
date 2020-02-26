@@ -207,7 +207,7 @@ if(isset($_POST['Foto'])) {
             
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -240,19 +240,31 @@ if(isset($_POST['Foto'])) {
 								while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 									extract($row);
                                     
-                                    if($foto==NULL) { $foto ='
-                                    <a href="#" type="button" class="btn btn-warning btn-icon-split"  data-toggle="modal" data-target="#fotoModal'. $id.' ">
-						  <span class="icon ">! <i class="fas fa-user"></i></span> 
-							</a> 
-                            ';}
+                                    if($foto==NULL) { $fotox ='
+                                    <a href="#" type="button" class="btn btn-warning btn-icon-split text-center"  data-toggle="modal" data-target="#fotoModal'. $id.' ">
+                                    <button class="btn btn-link  ">! <i class="fas fa-user"></i></button> 
+                                      </a> 
+                                      ';} else {
+                                        $fotox ='
+                                        <form method="POST" action="anggotadetail">
+                                        <input type="hidden" name="id" value="'.$id.'" >
+                                        <button type="submit"  class="btn btn-link mt-n4 mb-n4 "><img src="uploads/avatar/'.$foto.' " width="50px"></a></button>
+                                      </form>
+                                      ';
+                                            }
                     ?>
                     <tr>
                       <td><?php echo $no++; ?></td>
                       <td><?php echo $no_anggota; ?></td> 
-                      <td><?php echo $nama; ?></td>
+                      <td>
+                      <form method="POST" action="anggotadetail">
+                      <input type="hidden" name="id" value="<?php echo $id; ?>" >
+                        <button type="submit"  class="btn btn-link mt-n4 mb-n4 text-left"><?php echo $nama; ?></a></button>
+                      </form>
+                      </td>
                       <td><?php echo $telepon; ?></td>
                       <td><?php echo $asal_kampus; ?></td>
-                      <td><?php echo $foto; ?></td>
+                      <td align="center"><?php echo $fotox; ?></td>
                       <td><?php echo $status_anggota; ?></td>
                       <td>	<a href="#" type="button" class="btn btn-info btn-icon-split"  data-toggle="modal" data-target="#editModal<?php echo $id; ?>">
 						  <span class="icon "><i class="fas fa-edit"></i></span> 
