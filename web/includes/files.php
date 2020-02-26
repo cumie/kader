@@ -7,7 +7,7 @@ if(isset($_GET['p'])){
 			 case '' :
                 if(!file_exists ('pages/main.php')) die ($nopage);
                 include 'pages/main.php';
-				break; 
+				break;
 			case 'test':
 				include "pages/test.php";
 				break;
@@ -18,6 +18,10 @@ if(isset($_GET['p'])){
 			case 'anggota':
                 if(!file_exists ('pages/anggota.php')) die ($nopage);
 				include "pages/anggota.php";
+				break;
+			case 'pendidikan':
+                if(!file_exists ('pages/pendidikan.php')) die ($nopage);
+				include "pages/pendidikan.php";
 				break;
 				//end
 
