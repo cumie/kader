@@ -42,9 +42,16 @@
         <a class="nav-link" href="test">
           <i class="fas fa-fw fa-table"></i>
           <span>Test</span></a>
+      </li> 
+      
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="pengalaman">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Pengalaman</span></a>
       </li>
-
-
+      
+       
       <!-- Divider -->
       <hr class="sidebar-divider">
 

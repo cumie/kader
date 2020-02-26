@@ -2,3 +2,12 @@
 .sidebar .sidebar-brand {
   height: 6.375rem; 
 }
+
+
+#gaya {
+	text-align:center;
+	perspective: 25px;
+}
+
+#koyo {  
+  transition: transform 0.5s; 
