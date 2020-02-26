@@ -269,7 +269,7 @@ if(isset($_POST['Hapus'])) {
 
 <!-- batas -->
           <!-- Tambah pendidikan Modal-->
-          <div class="modal fade" id="pendidikanModal" tabindex="-1" role="dialog" aria-labelledby="pendidikanModalLabel" aria-hidden="true">
+          <div class="modal fade" id="pendidikanModal" tabindex="-1" role="dialog" aria-labelledby="anggotaModalLabel" aria-hidden="true">
             <form role="form" action="" method="post" enctype="multipart/form-data">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -341,39 +341,40 @@ if(isset($_POST['Hapus'])) {
           </div>
           <!-- end pendidikan -->
 
-<!-- Script -->
-<script type='text/javascript'>
-$(document).ready(function(){
-    $('#btn_upload').click(function(){
+          <!-- Script -->
+          <script type='text/javascript'>
+          $(document).ready(function(){
+              $('#btn_upload').click(function(){
 
-        var fd = new FormData();
-        var files = $('#file_bukti')[0].files[0];
-        fd.append('file_upload',files);
+                  var fd = new FormData();
+                  var files = $('#file')[0].files[0];
+                  fd.append('file',files);
 
-        // AJAX request
-        $.ajax({
-            url: 'pages/ajaxfile.php',
-            type: 'post',
-            data: fd,
-            contentType: false,
-            processData: false,
-            success: function(response){
-                if(response != 0){
-                    // Show image preview
-                    $('#preview').append("<img src='"+response+"' width='160' height='160' style='display: inline-block;'>");
-                }else{
-                    alert('file not uploaded');
-                }
-            }
-        });
-    });
-});
-</script>
+                  // AJAX request
+                  $.ajax({
+                      url: 'pages/ajaxfile.php',
+                      type: 'post',
+                      data: fd,
+                      contentType: false,
+                      processData: false,
+                      success: function(response){
+                          if(response != 0){
+                              // Show image preview
+                              $('#preview').append("<img src='"+response+"' width='160' height='160' style='display: inline-block;'>");
+                          }else{
+                              alert('file not uploaded');
+                          }
+                      }
+                  });
+              });
+          });
+          </script>
 
-<script>
-  window.setTimeout(function() {
-    $(".alert").fadeTo(500, 0).slideUp(500, function(){
-        $(this).remove();
-    });
-}, 3000);
-</script>
+
+          <script>
+            window.setTimeout(function() {
+              $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                  $(this).remove();
+              });
+          }, 3000);
+          </script>

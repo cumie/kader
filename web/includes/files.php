@@ -18,17 +18,18 @@ if(isset($_GET['p'])){
 			case 'anggota':
                 if(!file_exists ('pages/anggota.php')) die ($nopage);
 				include "pages/anggota.php";
-				break; 
+				break;
 			case 'pendidikan':
                 if(!file_exists ('pages/pendidikan.php')) die ($nopage);
-				include "pages/pendidikan.php"; 
+				include "pages/pendidikan.php";
+				break;
 			case 'anggotadetail':
                 if(!file_exists ('pages/det_anggota.php')) die ($nopage);
 				include "pages/det_anggota.php";
 				break;
 			case 'pengalaman':
                 if(!file_exists ('pages/pengalaman.php')) die ($nopage);
-				include "pages/pengalaman.php"; 
+				include "pages/pengalaman.php";
 				break;
 				//end
 

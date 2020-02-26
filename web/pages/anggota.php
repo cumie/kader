@@ -1,31 +1,31 @@
-<?php include "includes/conf.php"; 
+<?php include "includes/conf.php";
 
   if(isset($_POST['Simpan'])) {
       $no_anggota = $_POST['no_anggota'];
       $tanggal_gabung = $_POST['tanggal_gabung'];
-      $nama = $_POST['nama']; 
-      // $id_pengguna = 2; 
-      $username = $_POST['username']; 
-      $password = $_POST['password']; 
-      $nik = $_POST['nik']; 
-      $jenis_kelamin = $_POST['jenis_kelamin']; 
-      $tempat_ = $_POST['tempat_lahir']; 
-      $tanggal_lahir = $_POST['tanggal_lahir']; 
-      $telepon = $_POST['telepon']; 
-      $email = $_POST['email']; 
-      $alamat = $_POST['alamat']; 
-      $desa = $_POST['desa']; 
-      $kecamatan = $_POST['kecamatan']; 
-      $kabupaten = $_POST['kabupaten']; 
-      $asal_kampus = $_POST['asal_kampus']; 
-      $fakultas = $_POST['fakultas']; 
-      $program_studi = $_POST['program_studi']; 
-      $bulan_mapaba = $_POST['bulan_mapaba']; 
-      $tahun_mapaba = $_POST['tahun_mapaba']; 
-      $motivasi = $_POST['motivasi']; 
+      $nama = $_POST['nama'];
+      // $id_pengguna = 2;
+      $username = $_POST['username'];
+      $password = $_POST['password'];
+      $nik = $_POST['nik'];
+      $jenis_kelamin = $_POST['jenis_kelamin'];
+      $tempat_ = $_POST['tempat_lahir'];
+      $tanggal_lahir = $_POST['tanggal_lahir'];
+      $telepon = $_POST['telepon'];
+      $email = $_POST['email'];
+      $alamat = $_POST['alamat'];
+      $desa = $_POST['desa'];
+      $kecamatan = $_POST['kecamatan'];
+      $kabupaten = $_POST['kabupaten'];
+      $asal_kampus = $_POST['asal_kampus'];
+      $fakultas = $_POST['fakultas'];
+      $program_studi = $_POST['program_studi'];
+      $bulan_mapaba = $_POST['bulan_mapaba'];
+      $tahun_mapaba = $_POST['tahun_mapaba'];
+      $motivasi = $_POST['motivasi'];
       $level = 2;
       $opsi = "Anggota";
-      
+
         $Sql = "INSERT INTO `pengguna`(status, user, password, level, opsi) VALUES ( '1',?,?,?,? ) ";
         $database = new Database();
         $db = $database->getConnection();
@@ -33,11 +33,11 @@
         $stmt->bindParam(1, $username);
         $stmt->bindParam(2, $password);
         $stmt->bindParam(3, $level);
-        $stmt->bindParam(4, $opsi); 
+        $stmt->bindParam(4, $opsi);
         $stmt->execute();
-        
+
         $id_pengguna = $db->lastInsertId();
-        
+
         $mySql = "INSERT INTO `anggota`(`status`, `no_anggota`, `tanggal_gabung`, `id_pengguna`, `nik`, `nama`, `email`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `telepon`, `alamat`, `desa`, `kecamatan`, `kabupaten`, `asal_kampus`, `fakultas`, `prodi`, `bulan_mapaba`, `tahun_mapaba`, `motivasi`, `status_anggota`) VALUES ( '1',?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'Aktif' ) ";
         $database = new Database();
         $db = $database->getConnection();
@@ -63,50 +63,50 @@
         $stmt->bindParam(19, $tahun_mapaba);
         $stmt->bindParam(20, $motivasi);
         $stmt->execute();
-        if($stmt) { 
+        if($stmt) {
            ?>
            <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Tambah Data Berhasil!</strong> Pengguna baru dengan ID = <?php echo $id_pengguna; ?>, dengan nama  <?php echo $nama; ?> telah ditambahkan!
 </div>
-<?php 
-        } 
-  } 
+<?php
+        }
+  }
 
-if(isset($_POST['Edit'])) { 
+if(isset($_POST['Edit'])) {
       $id = $_POST['id'];
       $no_anggota = $_POST['no_anggota'];
       $tanggal_gabung = $_POST['tanggal_gabung'];
-      $nama = $_POST['nama']; 
+      $nama = $_POST['nama'];
       $id_pengguna = $_POST['id_pengguna'];
-      // $username = $_POST['username']; 
-      // $password = $_POST['password']; 
-      $nik = $_POST['nik']; 
-      $jenis_kelamin = $_POST['jenis_kelamin']; 
-      $tempat_ = $_POST['tempat_lahir']; 
-      $tempat_lahir = $_POST['tempat_lahir']; 
-      $tanggal_lahir = $_POST['tanggal_lahir']; 
-      $telepon = $_POST['telepon']; 
-      $email = $_POST['email']; 
-      $alamat = $_POST['alamat']; 
-      $desa = $_POST['desa']; 
-      $kecamatan = $_POST['kecamatan']; 
-      $kabupaten = $_POST['kabupaten']; 
-      $asal_kampus = $_POST['asal_kampus']; 
-      $fakultas = $_POST['fakultas']; 
-      $program_studi = $_POST['program_studi']; 
-      $bulan_mapaba = $_POST['bulan_mapaba']; 
-      $tahun_mapaba = $_POST['tahun_mapaba']; 
-      $motivasi = $_POST['motivasi']; 
-      $status_anggota = $_POST['status_anggota']; 
-      
-      
+      // $username = $_POST['username'];
+      // $password = $_POST['password'];
+      $nik = $_POST['nik'];
+      $jenis_kelamin = $_POST['jenis_kelamin'];
+      $tempat_ = $_POST['tempat_lahir'];
+      $tempat_lahir = $_POST['tempat_lahir'];
+      $tanggal_lahir = $_POST['tanggal_lahir'];
+      $telepon = $_POST['telepon'];
+      $email = $_POST['email'];
+      $alamat = $_POST['alamat'];
+      $desa = $_POST['desa'];
+      $kecamatan = $_POST['kecamatan'];
+      $kabupaten = $_POST['kabupaten'];
+      $asal_kampus = $_POST['asal_kampus'];
+      $fakultas = $_POST['fakultas'];
+      $program_studi = $_POST['program_studi'];
+      $bulan_mapaba = $_POST['bulan_mapaba'];
+      $tahun_mapaba = $_POST['tahun_mapaba'];
+      $motivasi = $_POST['motivasi'];
+      $status_anggota = $_POST['status_anggota'];
+
+
         $mySql = "UPDATE  `anggota` SET `no_anggota`=?, `tanggal_gabung`=?, `nik`=?, `nama`=?, `email`=?, `jenis_kelamin`=?, `tempat_lahir`=?, `tanggal_lahir`=?, `telepon`=?, `alamat`=?, `desa`=?, `kecamatan`=?, `kabupaten`=?, `asal_kampus`=?, `fakultas`=?, `prodi`=?, `bulan_mapaba`=?, `tahun_mapaba`=?, `motivasi`=?, `status_anggota`=? WHERE id=? ";
         $database = new Database();
         $db = $database->getConnection();
         $stmt = $db->prepare($mySql);
         $stmt->bindParam(1, $no_anggota);
-        $stmt->bindParam(2, $tanggal_gabung); 
+        $stmt->bindParam(2, $tanggal_gabung);
         $stmt->bindParam(3, $nik);
         $stmt->bindParam(4, $nama);
         $stmt->bindParam(5, $email);
@@ -127,67 +127,67 @@ if(isset($_POST['Edit'])) {
         $stmt->bindParam(20, $status_anggota);
         $stmt->bindParam(21, $id);
        $stmt->execute();
-   
-    if($stmt) { 
+
+    if($stmt) {
    ?>
    <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Edit Data Berhasil!</strong> Pengguna baru dengan ID = <?php echo $id_pengguna; ?>, dengan nama  <?php echo $nama; ?> telah dirubah!
 </div>
-<?php 
+<?php
     }
   }
 
-if(isset($_POST['Hapus'])) {  
-      $id = $_POST['id']; 
-      $id_pengguna = $_POST['id_pengguna']; 
-      $nama = $_POST['nama']; 
-      
+if(isset($_POST['Hapus'])) {
+      $id = $_POST['id'];
+      $id_pengguna = $_POST['id_pengguna'];
+      $nama = $_POST['nama'];
+
       $Sql = "DELETE FROM anggota WHERE id=? ";
         $database = new Database();
         $db = $database->getConnection();
         $stmt = $db->prepare($Sql);
-        $stmt->bindParam(1, $id); 
+        $stmt->bindParam(1, $id);
        $stmt->execute();
-      
+
       $mySql = "DELETE FROM pengguna WHERE id=? ";
         $database = new Database();
         $db = $database->getConnection();
         $stmt = $db->prepare($mySql);
-        $stmt->bindParam(1, $id_pengguna); 
+        $stmt->bindParam(1, $id_pengguna);
        $stmt->execute();
-       if($stmt) { 
+       if($stmt) {
     ?>
    <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Hapus Data Berhasil!</strong> Pengguna dengan ID = <?php echo $id_pengguna; ?>, dengan nama  <?php echo $nama; ?> telah dihapus!
 </div>
-<?php 
+<?php
     }
   }
-  
-if(isset($_POST['Foto'])) {  
-      $id = $_POST['id']; 
-      $id_pengguna = $_POST['id_pengguna']; 
-      $nama = $_POST['nama']; 
-      $foto = $_FILES['file']['name']; 
-      
-      
+
+if(isset($_POST['Foto'])) {
+      $id = $_POST['id'];
+      $id_pengguna = $_POST['id_pengguna'];
+      $nama = $_POST['nama'];
+      $foto = $_FILES['file']['name'];
+
+
     ?>
    <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Tambah Foto Berhasil!</strong> Pengguna dengan ID = <?php echo $id_pengguna; ?>, dengan nama  <?php echo $nama; ?> telah ditambahkan foto dengan file <?php echo $foto; ?>!
 </div>
-<?php 
-    } 
+<?php
+    }
 ?>
-           
+
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Data Anggota</h1>
       <div class="row">
         <div class="col-md-10">
-         <p class="mb-4">Data Anggota merupakan data seluruh anggota / kader yang ada pada aplikasi ini. Data yang dipublikasi pada halaman web masyarakat hanya data anggota yang memiliki status aktif dan pasif.</p> 
+         <p class="mb-4">Data Anggota merupakan data seluruh anggota / kader yang ada pada aplikasi ini. Data yang dipublikasi pada halaman web masyarakat hanya data anggota yang memiliki status aktif dan pasif.</p>
           </div>
            <div class="col-md-2">
           <a href="#" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#anggotaModal">
@@ -199,19 +199,19 @@ if(isset($_POST['Foto'])) {
         </div>
       </div>
 
-<?php include "includes/badge1.php"; ?> 
- 
- 
+<?php include "includes/badge1.php"; ?>
+
+
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
-            
+
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>No Anggota</th> 
+                      <th>No Anggota</th>
                       <th>Nama</th>
                       <th>No Telepon</th>
                       <th>Komisariat</th>
@@ -219,7 +219,7 @@ if(isset($_POST['Foto'])) {
                       <th>Status</th>
                       <th>Opsi</th>
                     </tr>
-                  </thead> 
+                  </thead>
                   <tbody>
                   <?php
 							$mySql = "SELECT anggota.* FROM anggota ORDER BY updated_at DESC ";
@@ -239,11 +239,11 @@ if(isset($_POST['Foto'])) {
 							} else {
 								while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 									extract($row);
-                                    
+
                                     if($foto==NULL) { $fotox ='
                                     <a href="#" type="button" class="btn btn-warning btn-icon-split text-center"  data-toggle="modal" data-target="#fotoModal'. $id.' ">
-                                    <button class="btn btn-link  ">! <i class="fas fa-user"></i></button> 
-                                      </a> 
+                                    <button class="btn btn-link  ">! <i class="fas fa-user"></i></button>
+                                      </a>
                                       ';} else {
                                         $fotox ='
                                         <form method="POST" action="anggotadetail">
@@ -255,7 +255,7 @@ if(isset($_POST['Foto'])) {
                     ?>
                     <tr>
                       <td><?php echo $no++; ?></td>
-                      <td><?php echo $no_anggota; ?></td> 
+                      <td><?php echo $no_anggota; ?></td>
                       <td>
                       <form method="POST" action="anggotadetail">
                       <input type="hidden" name="id" value="<?php echo $id; ?>" >
@@ -267,29 +267,29 @@ if(isset($_POST['Foto'])) {
                       <td align="center"><?php echo $fotox; ?></td>
                       <td><?php echo $status_anggota; ?></td>
                       <td>	<a href="#" type="button" class="btn btn-info btn-icon-split"  data-toggle="modal" data-target="#editModal<?php echo $id; ?>">
-						  <span class="icon "><i class="fas fa-edit"></i></span> 
-							</a>   
-							<a href="#" type="button" class="btn btn-danger btn-icon-split"  data-toggle="modal" data-target="#deleteModal<?php echo $id; ?>"> 
-						  <span class="icon "><i class="fas fa-trash"></i></span> 
+						  <span class="icon "><i class="fas fa-edit"></i></span>
+							</a>
+							<a href="#" type="button" class="btn btn-danger btn-icon-split"  data-toggle="modal" data-target="#deleteModal<?php echo $id; ?>">
+						  <span class="icon "><i class="fas fa-trash"></i></span>
 							</a>
                   </td>
-                    </tr> 
-                    <!-- spesial edition modal edit --> 
+                    </tr>
+                    <!-- spesial edition modal edit -->
             <div class="modal fade" id="editModal<?php echo $id; ?>" role="dialog">
               <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
-                <div class="modal-content"> 
+                <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="anggotaModalLabel">Update Data Anggota <?php echo $nama; ?></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
-                  </div> 
+                  </div>
                   <div class="modal-body">
-                    <form role="form" action="" method="post"> 
+                    <form role="form" action="" method="post">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <input type="hidden" name="id_pengguna" value="<?php echo $id_pengguna; ?>">
-                       
+
           <div class="form-group row">
           <div class="col-md-6">
             <label for="no_anggota" class="col-form-label">No Anggota</label>
@@ -304,7 +304,7 @@ if(isset($_POST['Foto'])) {
           <div class="col-md-8">
             <label for="nama" class="col-form-label">Nama</label>
             <input type="text" class="form-control" id="nama" value="<?php echo $nama; ?>"  name="nama">
-          </div> 
+          </div>
           <div class="col-md-4">
             <label for="status_anggota" class="col-form-label"> Status Keanggotaan </label>
             <select  class="form-control"  id='status_anggota'  name='status_anggota' >
@@ -312,9 +312,9 @@ if(isset($_POST['Foto'])) {
 			<option value='Pasif' <?php if($status_anggota=='Pasif') { echo 'Selected'; } ?>> Pasif </option>
 			<option value='Suspend' <?php if($status_anggota=='Suspend') { echo 'Selected'; } ?>> Suspend </option>
             </select>
-          </div> 
-          </div> 
-		  
+          </div>
+          </div>
+
           <div class="form-group row">
           <div class="col-md-6">
             <label for="nik" class="col-form-label">Nomor Induk Kependudukan (KTP)</label>
@@ -326,18 +326,18 @@ if(isset($_POST['Foto'])) {
               <label class="radio-inline"><input type="radio" name="jenis_kelamin" value="Laki-laki" <?php if($jenis_kelamin=='Laki-laki') { echo "checked"; } ?> > Laki-laki </label>&nbsp;&nbsp;&nbsp;
               <label class="radio-inline"><input type="radio" value="Perempuan" name="jenis_kelamin" <?php if($jenis_kelamin=='Perempuan') { echo "checked"; } ?> > Perempuan</label>
             </div>
-          </div> 
-          </div> 
+          </div>
+          </div>
           <div class="form-group row">
           <div class="col-md-6">
             <label for="tempat_lahir" class="col-form-label">Tempat Lahir</label>
             <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" value="<?php echo $tempat_lahir; ?>" >
-          </div> 
+          </div>
           <div class="col-md-6">
             <label for="tanggal_lahir" class="col-form-label">Tanggal Lahir</label>
-            <input type="date" class="form-control"  min="<?php echo $maxage;?>" max="<?php echo $minage;?>"  id="tanggal_lahir" name="tanggal_lahir" value="<?php echo $tanggal_lahir; ?>" >
-          </div>  
-          </div>  
+            <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="<?php echo $tanggal_lahir; ?>" >
+          </div>
+          </div>
           <div class="form-group row">
           <div class="col-md-6">
             <label for="telepon" class="col-form-label">Telepon</label>
@@ -384,21 +384,21 @@ if(isset($_POST['Foto'])) {
           <div class="col-md-6">
             <label for="bulan_mapaba" class="col-form-label">Bulan Mapaba</label>
             <input type="text" class="form-control" id="bulan_mapaba" value="<?php echo $bulan_mapaba; ?>"  name="bulan_mapaba">
-          </div> 
+          </div>
           <div class="col-md-6">
             <label for="tahun_mapaba" class="col-form-label">Tahun Mapaba</label>
             <input type="number" class="form-control"  value="<?php echo $tahun_mapaba; ?>" id="tahun_mapaba" name="tahun_mapaba">
           </div>
-          </div> 
+          </div>
           <div class="form-group">
             <label for="motivasi" class="col-form-label"> Motivasi </label>
             <textarea class="form-control" id="motivasi" name="motivasi"> <?php echo $motivasi; ?> </textarea>
           </div>
-          
-                        <div class="modal-footer">  
+
+                        <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                           <button type="submit" name="Edit" class="btn btn-success">Simpan</button>
-                        </div>       
+                        </div>
                       </form>
                   </div>
                 </div>
@@ -409,26 +409,26 @@ if(isset($_POST['Foto'])) {
             <div class="modal fade" id="deleteModal<?php echo $id; ?>" role="dialog">
               <div class="modal-dialog">
                 <!-- Modal content-->
-                <div class="modal-content"> 
+                <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="anggotaModalLabel">Hapus Data Anggota <?php echo $nama; ?></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
-                  </div> 
+                  </div>
                   <div class="modal-body">
-                    <form role="form" action="" method="post"> 
+                    <form role="form" action="" method="post">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <input type="hidden" name="id_pengguna" value="<?php echo $id_pengguna; ?>">
                         <input type="hidden" name="nama" value="<?php echo $nama; ?>">
                         <div class="form-group">
-                          Yakin menghapus data ini? baik data pengguna maupun data anggota dan data lain yang berkaitan dengan anggota ini akan dihapus?      
-                        </div> 
-                        
-                        <div class="modal-footer">  
+                          Yakin menghapus data ini? baik data pengguna maupun data anggota dan data lain yang berkaitan dengan anggota ini akan dihapus?
+                        </div>
+
+                        <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                           <button type="submit" name="Hapus" class="btn btn-success">Hapus</button>
-                        </div>      
+                        </div>
                       </form>
                   </div>
                 </div>
@@ -439,13 +439,13 @@ if(isset($_POST['Foto'])) {
             <div class="modal fade" id="fotoModal<?php echo $id; ?>" role="dialog">
               <div class="modal-dialog">
                 <!-- Modal content-->
-                <div class="modal-content"> 
+                <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="fotoModalLabel">Upload Foto Anggota <?php echo $nama; ?></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
-                  </div> 
+                  </div>
                   <div class="modal-body">
                     <form method='post' action='' enctype="multipart/form-data">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
@@ -457,32 +457,32 @@ if(isset($_POST['Foto'])) {
 
                     <!-- Preview-->
                     <div id='preview'></div>
-                        
-                        <div class="modal-footer">  
+
+                        <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                           <button type="submit" name="Foto" class="btn btn-success">Simpan</button>  
-                        </div>      
+                           <button type="submit" name="Foto" class="btn btn-success">Simpan</button>
+                        </div>
                       </form>
                   </div>
                 </div>
               </div>
             </div>
             <!-- end delete modal -->
-            
-                    <?php  } 
-                            }                    
-                    ?> 
+
+                    <?php  }
+                            }
+                    ?>
                   </tbody>
                 </table>
               </div>
             </div>
-          </div> 
-          
-          
-        <?php  
+          </div>
+
+
+        <?php
             $now = strtotime(date("Y-m-d"));
             $minage = date('Y-m-d', strtotime('- 16 year', $now));
-            $maxage = date('Y-m-d', strtotime('- 50 year', $now)); 
+            $maxage = date('Y-m-d', strtotime('- 50 year', $now));
           ?>
   <!-- Tambah Anggota Modal-->
   <div class="modal fade" id="anggotaModal" tabindex="-1" role="dialog" aria-labelledby="anggotaModalLabel" aria-hidden="true">
@@ -510,7 +510,7 @@ if(isset($_POST['Foto'])) {
           <div class="form-group">
             <label for="nama" class="col-form-label">Nama</label>
             <input type="text" class="form-control" id="nama" name="nama">
-          </div> 
+          </div>
           <div class="form-group row">
           <div class="col-md-6">
             <label for="username" class="col-form-label">Username</label>
@@ -520,7 +520,7 @@ if(isset($_POST['Foto'])) {
             <label for="password" class="col-form-label">Password</label>
             <input type="text" class="form-control" id="password" name="password">
           </div>
-          </div> 
+          </div>
           <div class="form-group row">
           <div class="col-md-6">
             <label for="nik" class="col-form-label">Nomor Induk Kependudukan (KTP)</label>
@@ -532,18 +532,18 @@ if(isset($_POST['Foto'])) {
               <label class="radio-inline"><input type="radio" name="jenis_kelamin" value="Laki-laki" checked> Laki-laki </label>&nbsp;&nbsp;&nbsp;
               <label class="radio-inline"><input type="radio" value="Perempuan" name="jenis_kelamin"> Perempuan</label>
             </div>
-          </div> 
-          </div> 
+          </div>
+          </div>
           <div class="form-group row">
           <div class="col-md-6">
             <label for="tempat_lahir" class="col-form-label">Tempat Lahir</label>
             <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir">
-          </div> 
+          </div>
           <div class="col-md-6">
             <label for="tanggal_lahir" class="col-form-label">Tanggal Lahir</label>
             <input type="date" class="form-control"  value="<?php echo $minage;?>"  min="<?php echo $maxage;?>" max="<?php echo $minage;?>"  id="tanggal_lahir" name="tanggal_lahir">
-          </div>  
-          </div>  
+          </div>
+          </div>
           <div class="form-group row">
           <div class="col-md-6">
             <label for="telepon" class="col-form-label">Telepon</label>
@@ -590,30 +590,30 @@ if(isset($_POST['Foto'])) {
           <div class="col-md-6">
             <label for="bulan_mapaba" class="col-form-label">Bulan Mapaba</label>
             <input type="text" class="form-control" id="bulan_mapaba" name="bulan_mapaba">
-          </div> 
+          </div>
           <div class="col-md-6">
             <label for="tahun_mapaba" class="col-form-label">Tahun Mapaba</label>
             <input type="number" class="form-control" value="<?php echo date('Y'); ?>" id="tahun_mapaba" name="tahun_mapaba">
           </div>
-          </div> 
+          </div>
           <div class="form-group">
             <label for="motivasi" class="col-form-label"> Motivasi </label>
             <textarea class="form-control" id="motivasi" name="motivasi"></textarea>
           </div>
         </form>
-        
-        
+
+
         </div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button> 
-          <button class="btn btn-success" name="Simpan" type="submit" >Simpan</button> 
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+          <button class="btn btn-success" name="Simpan" type="submit" >Simpan</button>
         </div>
       </div>
     </div>
     </form>
   </div>
 
- 
+
 <!-- Script -->
 <script type='text/javascript'>
 $(document).ready(function(){
@@ -647,8 +647,7 @@ $(document).ready(function(){
 <script>
   window.setTimeout(function() {
     $(".alert").fadeTo(500, 0).slideUp(500, function(){
-        $(this).remove(); 
+        $(this).remove();
     });
 }, 3000);
 </script>
-        
