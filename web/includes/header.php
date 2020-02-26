@@ -17,11 +17,13 @@
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+
   <link href="css/custom.css" rel="stylesheet">
   <!-- jquery -->
-  <script src="js/jquery-3.1.1.min.js" type='text/javascript'></script>
-  <script src='vendor/bootstrap/js/bootstrap.min.js' type='text/javascript'></script>  
-  
+  <!-- <script src="js/jquery-3.1.1.min.js" type='text/javascript'></script> -->
+  <!-- <script src='vendor/bootstrap/js/bootstrap.min.js' type='text/javascript'></script>   -->
+
 
 </head>
