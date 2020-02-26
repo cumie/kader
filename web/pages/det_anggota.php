@@ -239,7 +239,7 @@ if(isset($_POST['id'])) {
 				  </tr>
 				<?php 
 				// echo $id;
-				$Sql1 = "SELECT pendidikan.* FROM pendidikan WHERE id_anggota=? ORDER BY tanggal_ijazah DESC ";
+				$Sql1 = "SELECT pendidikan.* FROM pendidikan WHERE id_anggota=? AND status=1 ORDER BY tanggal_ijazah DESC ";
 				$database = new Database();
 				$db = $database->getConnection();
 				$stmt1 = $db->prepare($Sql1);
@@ -291,7 +291,7 @@ if(isset($_POST['id'])) {
 				  </tr>
 				<?php 
 				 // echo $id;
-				$Sql2 = "SELECT keterampilan.* FROM keterampilan WHERE id_anggota=? ORDER BY tanggal_bukti DESC ";
+				$Sql2 = "SELECT keterampilan.* FROM keterampilan WHERE id_anggota=? AND status=1 ORDER BY tanggal_bukti DESC ";
 				$database = new Database();
 				$db = $database->getConnection();
 				$stmt2 = $db->prepare($Sql2);
@@ -343,7 +343,7 @@ if(isset($_POST['id'])) {
 				  </tr>
 				<?php 
 				 // echo $id;
-				$Sql2 = "SELECT pengalaman.* FROM pengalaman WHERE id_anggota=? ORDER BY tanggal_bukti DESC ";
+				$Sql2 = "SELECT pengalaman.* FROM pengalaman WHERE id_anggota=? AND status=1 ORDER BY tanggal_bukti DESC ";
 				$database = new Database();
 				$db = $database->getConnection();
 				$stmt2 = $db->prepare($Sql2);
