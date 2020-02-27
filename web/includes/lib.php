@@ -139,10 +139,12 @@ function cekLevel($url,$expected){
 	);
 	$jsonDataEncoded = json_encode($jsonData);
 	$result_JSON = request_api($url,$jsonDataEncoded);
-	if($expected==$result_JSON["data"]["level"])
+	// if(!empty($result_JSON)){
+		if($expected==$result_JSON["data"]["level"])
 		return true;
-	else
+		else
 		return false;
+	// }
 }
 
 

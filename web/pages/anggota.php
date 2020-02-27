@@ -13,7 +13,8 @@ include "includes/conf.php";
 
 //CONTOH AKSES LEVEL BOLEH UNTUK LEVEL 1 ATAU LEVEL 2
 if(
-  cekLevel(API_URL."pengguna/validate-token.php",1) 
+  cekLevel(API_URL."pengguna/validate-token.php",1) ||
+  cekLevel(API_URL."pengguna/validate-token.php",2)
 ){
   if(isset($_POST['Simpan'])) {
     $no_anggota = $_POST['no_anggota'];

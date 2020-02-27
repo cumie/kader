@@ -11,6 +11,10 @@ if(isset($_GET['p'])){
 			case 'test':
 				include "pages/test.php";
 				break;
+			case 'unauthorized':
+				if(!file_exists ('pages/503.php')) die ($nopage);
+				include "pages/503.php";
+				break;
 			case 'table':
                 if(!file_exists ('pages/tables.php')) die ($nopage);
 				include "pages/tables.php";
