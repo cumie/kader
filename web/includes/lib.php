@@ -131,6 +131,21 @@ function request_api($url,$jsonDataEncoded){
 	return $result_JSON;
 }
 
+function cekLevel($url,$expected){
+	// $url = API_SINGKONG.'jabakademik/read_by_id_dosen.php';
+	$jwt = $_COOKIE['jwt'];
+	$jsonData = array(
+		'jwt' => $jwt
+	);
+	$jsonDataEncoded = json_encode($jsonData);
+	$result_JSON = request_api($url,$jsonDataEncoded);
+	if($expected==$result_JSON["data"]["level"])
+		return true;
+	else
+		return false;
+}
+
+
 function hash_pass($pass){
 	$length = 31;
 	// $randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
@@ -140,23 +155,23 @@ function hash_pass($pass){
     return md5($pass.$salt.$day);
 }
 
-function singkat_nama($nama,$jumlahpakai) { 
-	$array = explode(" ",$nama); 
-	$last_word  = $array[count($array)-1]; 
-	if(count($array)>$jumlahpakai) {  
+function singkat_nama($nama,$jumlahpakai) {
+	$array = explode(" ",$nama);
+	$last_word  = $array[count($array)-1];
+	if(count($array)>$jumlahpakai) {
 		for ($i = 0; $i < $jumlahpakai; $i++){
 		  echo  $array[$i].' ';
-		}  
+		}
 		for ($i = $jumlahpakai; $i < count($array)-1; $i++){
 		  echo  substr("$array[$i]",0,1);
-	} 
-	$belakang = ' '.$last_word;  
+	}
+	$belakang = ' '.$last_word;
 	echo $belakang;
-	} 
-	else 
+	}
+	else
 	{
 		echo $nama;
-	} 
+	}
 	return;
 }
 
@@ -167,15 +182,15 @@ function status_periode(){
 	  $stmt = $db->prepare($mySql);
 	  $stmt->execute();
 	  $rows = $stmt->fetch(PDO::FETCH_ASSOC);
-			
+
 		$tanggal_buka = $rows['tanggal_buka'];
 		$tanggal_tutup =$rows['tanggal_tutup'];
 		$tanggal_buka2 =$rows['tanggal_buka2'];
 		$tanggal_tutup2 =$rows['tanggal_tutup2'];
 		$tanggal_buka3 =$rows['tanggal_buka3'];
 		$tanggal_kunci =$rows['tanggal_kunci'];
-		 
-	   $hareni= date('Y-m-d');  
+
+	   $hareni= date('Y-m-d');
   if(($hareni >= $tanggal_buka) && ($hareni <= $tanggal_tutup)) {
 	  $opsi = "Periode Terbuka";
   }
@@ -184,12 +199,12 @@ function status_periode(){
   }
   else if(($hareni >= $tanggal_buka3) && ($hareni <= $tanggal_kunci)) {
 	  $opsi = "Periode Terbuka";
-  } 
+  }
   else if($hareni > $tanggal_kunci) {
 	  $opsi = "Periode Ditutup";
-  } 
-  else $opsi = "Periode Tertutup"; 
+  }
+  else $opsi = "Periode Tertutup";
   return $opsi;
-} 
-	  
+}
+
 ?>
