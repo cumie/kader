@@ -1,6 +1,30 @@
+<script type="text/javascript">
+function getCookie(cname){
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' '){
+            c = c.substring(1);
+        }
+
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+var jwt = getCookie("jwt");
+if(jwt==""){
+  window.location.replace("pages/account/login.php");
+}
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
-<?php include "includes/lib.php"; ?> 
+<?php include "includes/lib.php"; ?>
 <?php include "includes/header.php"; ?>
 <body id="page-top">
 
@@ -10,7 +34,7 @@
 
 <?php include "includes/sidebar.php"; ?>
 
- 
+
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
