@@ -441,7 +441,6 @@ if(isset($_POST['Non-Aktif'])) {
           ?>
   <!-- Tambah Anggota Modal-->
   <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="anggotaModalLabel" aria-hidden="true">
-  <form method="post" action="" enctype="multipart/form-data">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -451,7 +450,7 @@ if(isset($_POST['Non-Aktif'])) {
           </button>
         </div>
         <div class="modal-body"><p>Tambahkan data Pengalaman, data pengalaman yang diinput pada form ini akan langsung berstatus aktif.</p>
-           <form>
+          <form method="post" action="" enctype="multipart/form-data">
           <div class="form-group row">
           <div class="col-md-8">
             <label for="id_anggota" class="col-form-label">Anggota</label>
