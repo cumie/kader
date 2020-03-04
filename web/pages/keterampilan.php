@@ -15,6 +15,9 @@ if(isset($_POST['Simpan'])) {
   else
   {
     $upload_dir = 'uploads/keterampilan/'; // upload directory
+    if(!is_dir($upload_dir)){
+      mkdir($upload_dir, 0755, True);
+    }
 
     $imgExt = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION)); // get image extension
 
