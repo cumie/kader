@@ -4,39 +4,110 @@
       $id_anggota = $_POST['id_anggota'];
       $tanggal_bukti = $_POST['tanggal_bukti'];  
       $nama_keterampilan = $_POST['nama_keterampilan'];  
-      $keterangan = $_POST['keterangan']; 
-      $file_bukti = $_POST['file_bukti'];   
-        
-        $mySql = "INSERT INTO `keterampilan`(`status`, `id_anggota`, `tanggal_bukti`, `nama_keterampilan`, `keterangan`, `file_bukti`) VALUES ('1',?,?,?,?,?) ";
-        $database = new Database();
-        $db = $database->getConnection();
-        $stmt = $db->prepare($mySql);
-        $stmt->bindParam(1, $id_anggota);
-        $stmt->bindParam(2, $tanggal_bukti);
-        $stmt->bindParam(3, $nama_keterampilan);
-        $stmt->bindParam(4, $keterangan);
-        $stmt->bindParam(5, $file_bukti); 
-        $stmt->execute();
-        if($stmt) { 
-           ?>
-           <div class="alert alert-success" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <strong>Tambah Data Berhasil!</strong> Keterampilan  <?php echo $nama_keterampilan; ?> telah ditambahkan!
-</div>
-<?php 
-        } 
-  } 
+      $keterangan = $_POST['keterangan'];
+      $imgFile = $_FILES['file_bukti']['name'];
+      $tmp_dir = $_FILES['file_bukti']['tmp_name'];
+      $imgSize = $_FILES['file_bukti']['size'];
 
-if(isset($_POST['Edit'])) { 
-      $id = $_POST['id'];
-      $nama = $_POST['nama']; 
-      $id_anggota = $_POST['id_anggota'];
-      $tanggal_bukti = $_POST['tanggal_bukti'];  
-      $nama_keterampilan = $_POST['nama_keterampilan'];  
-      $keterangan = $_POST['keterangan']; 
-      $file_bukti = $_POST['file_bukti']; 
-      $status = $_POST['status'];  
-      
+      if(empty($imgFile)){
+         $errMSG = "Please Select Image File.";
+        }
+        else
+        {
+         $upload_dir = 'uploads/keterampilan/'; // upload directory
+
+         $imgExt = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION)); // get image extension
+
+         // valid image extensions
+         $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
+
+         // rename uploading image
+         $userpic = $id_anggota."_".date('ymd')."_".generateRandomString(4).".".$imgExt;
+
+         // allow valid image file formats
+         if(in_array($imgExt, $valid_extensions)){
+          // Check file size '5MB'
+          if($imgSize < 5000000)    {
+           move_uploaded_file($tmp_dir,$upload_dir.$userpic);
+          }
+          else{
+           $errMSG = "Sorry, your file is too large.";
+          }
+         }
+         else{
+          $errMSG = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+         }
+        }
+
+    // $level = 2;
+    // $opsi = "pendidikan";
+
+    if(!isset($errMSG))
+    {
+      $mySql = "INSERT INTO `pendidikan`(`status`, `id_anggota`, `tanggal_ijazah`, `nama_pendidikan`, `jenjang_pendidikan`, `keterangan`, `file_bukti`) VALUES ( '1',?,?,?,?,?,? ) ";
+      $database = new Database();
+      $db = $database->getConnection();
+      $stmt = $db->prepare($mySql);
+      $stmt->bindParam(1, $id_anggota);
+      $stmt->bindParam(2, $tanggal_ijazah);
+      $stmt->bindParam(3, $nama_pendidikan);
+      $stmt->bindParam(4, $jenjang_pendidikan);
+      $stmt->bindParam(5, $keterangan);
+      $stmt->bindParam(6, $userpic);
+      $stmt->execute();
+      if($stmt) {
+         ?>
+      <div class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Tambah Data Pendidikan Berhasil!</strong>
+      </div>
+<?php
+      }
+    } else { echo "Gagal simpan!"; }
+}
+
+if(isset($_POST['Edit'])) {
+    $id = $_POST['id'];
+    $id_anggota = $_POST['id_anggota'];
+    $nama_pendidikan = $_POST['nama_pendidikan'];
+    $jenjang_pendidikan = $_POST['jenjang_pendidikan'];
+    $tanggal_ijazah = $_POST['tanggal_ijazah'];
+    $file_bukti_lama = $_POST['file_bukti_lama'];
+    $userpic = $_POST['file_bukti_lama'];
+    $keterangan = $_POST['keterangan'];
+
+    $imgFile = $_FILES['file_bukti']['name'];
+    $tmp_dir = $_FILES['file_bukti']['tmp_name'];
+    $imgSize = $_FILES['file_bukti']['size'];
+
+    if($imgFile){
+       $upload_dir = 'uploads/keterampilan/'; // upload directory
+
+       $imgExt = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION)); // get image extension
+
+       // valid image extensions
+       $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
+
+       // file lawas
+       $file_nama_ja = explode(".",$file_bukti_lama);
+       // rename uploading image
+       $userpic = $file_nama_ja[0].".".$imgExt;
+
+       // allow valid image file formats
+       if(in_array($imgExt, $valid_extensions)){
+        // Check file size '5MB'
+        if($imgSize < 5000000)    {
+         move_uploaded_file($tmp_dir,$upload_dir.$userpic);
+        }
+        else{
+         $errMSG = "Sorry, your file is too large.";
+        }
+       }
+       else{
+        $errMSG = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+       }
+       }
+
       
         $mySql = "UPDATE  keterampilan SET  tanggal_bukti=?, nama_keterampilan=?, keterangan=?, file_bukti=?, status=? WHERE id=? ";
         $database = new Database();
@@ -45,7 +116,7 @@ if(isset($_POST['Edit'])) {
         $stmt->bindParam(1, $tanggal_bukti);
         $stmt->bindParam(2, $nama_keterampilan); 
         $stmt->bindParam(3, $keterangan);
-        $stmt->bindParam(4, $file_bukti);
+        $stmt->bindParam(4, $userpic);
         $stmt->bindParam(5, $status); 
         $stmt->bindParam(6, $id); 
        $stmt->execute();
@@ -64,6 +135,7 @@ if(isset($_POST['Hapus'])) {
       $id = $_POST['id']; 
       $id_anggota = $_POST['id_anggota']; 
       $nama = $_POST['nama'];  
+      $userpic = $_POST['file_bukti_lama'];   
       
       $mySql = "DELETE FROM keterampilan WHERE id=? ";
         $database = new Database();
@@ -72,6 +144,9 @@ if(isset($_POST['Hapus'])) {
         $stmt->bindParam(1, $id); 
        $stmt->execute();
        if($stmt) { 
+        if(file_exists("uploads/keterampilan/".$userpic)) {
+          unlink("uploads/keterampilan/".$userpic);
+         }
     ?>
    <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -200,8 +275,8 @@ if(isset($_POST['Non-Aktif'])) {
 					<td><?php echo $nama_keterampilan; ?></td>  
 					<td><?php echo $keterangan; ?></td>  
 					<td><?php echo indonesiaTgl($tanggal_bukti); ?></td>  
-					<td align="center"><a href="uploads/dokumen/<?php echo $file_bukti; ?>" target="_blank"><i class="fas fa-file"></i></a></td> 
-					<td><?php echo $statusx; ?></td>   
+					<td align="center"><a href="uploads/keterampilan/<?php echo $file_bukti; ?>" target="_blank"><img src="uploads/keterampilan/<?php echo $file_bukti ? $file_bukti : 'noimage.png'; ?>" width="50px"></a></td> 
+					<td><?php echo $statusx; ?></td>     
                     <td>
                     <?php if($status==1) { ?>
                        <a href="#" type="button" class="btn btn-warning btn-icon-split"  data-toggle="modal" data-target="#verifModal<?php echo $id; ?>">
@@ -237,6 +312,7 @@ if(isset($_POST['Non-Aktif'])) {
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <input type="hidden" name="id_anggota" value="<?php echo $id_anggota; ?>"> 
                         <input type="hidden" name="nama" value="<?php echo $nama; ?>">
+                        <input type="hidden" name="file_bukti_lama" value="<?php echo $file_bukti; ?>">
                           <div class="form-group row">
                           <div class="col-md-6">
                             <label for="nama_keterampilan" class="col-form-label">keterampilan</label>
@@ -249,8 +325,8 @@ if(isset($_POST['Non-Aktif'])) {
                           </div>  
                           <div class="form-group row">
                           <div class="col-md-6">
-                            <label for="file_bukti" class="col-form-label">File Bukti</label>
-                            <input type="file" class="form-control" id="file_bukti" value="<?php echo $file_bukti; ?>" name="file_bukti">
+                            <label for="file_bukti" class="col-form-label">File Bukti</label> 
+                          <input type="file" class="form-control" id="image-source" name="file_bukti" onchange="previewImage();"/>
                           </div>
                           <div class="col-md-6">
                             <label for="status" class="col-form-label">Status Verifikasi</label>
@@ -259,6 +335,11 @@ if(isset($_POST['Non-Aktif'])) {
                             <option value="0" <?php if($status==0) {echo "selected";}?> > Pending</option>
                             </select>
                           </div>
+                          </div> 
+                          <div class="form-group">
+                          <center>
+                            <img id="image-preview" alt="image preview"/>
+                          </center>  
                           </div> 
                           <div class="form-group">
                             <label for="keterangan" class="col-form-label">Keterangan</label>
@@ -291,6 +372,7 @@ if(isset($_POST['Non-Aktif'])) {
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <input type="hidden" name="id_anggota" value="<?php echo $id_anggota; ?>">
                         <input type="hidden" name="nama" value="<?php echo $nama; ?>">
+                        <input type="hidden" name="file_bukti_lama" value="<?php echo $file_bukti; ?>">
                         <div class="form-group">
                           Yakin menghapus data ini? data Keterampilan beserta file bukti akan terhapus?      
                         </div> 
@@ -399,10 +481,15 @@ if(isset($_POST['Non-Aktif'])) {
             <input type="text" class="form-control" id="nama_keterampilan" name="nama_keterampilan">
           </div> 
           <div class="col-md-4">
-            <label for="file_bukti" class="col-form-label">File Bukti</label>
-            <input type="file" class="form-control" id="file_bukti" name="file_bukti">
+            <label for="file_bukti" class="col-form-label">File Bukti</label>  
+            <input type="file" class="form-control" id="image-source" name="file_bukti" onchange="previewImage();"/> 
           </div> 
           </div> 
+          <div class="form-group">
+          <center>
+            <img id="image-preview" alt="image preview"/>
+          </center>  
+          </div>  
           <div class="form-group"> 
             <label for="keterangan" class="col-form-label">Keterangan</label>
             <textarea class="form-control" id="keterangan" name="keterangan"> <?php echo $keterangan; ?> </textarea>
@@ -421,32 +508,17 @@ if(isset($_POST['Non-Aktif'])) {
  
 <!-- Script -->
 <script type='text/javascript'>
-$(document).ready(function(){
-    $('#btn_upload').click(function(){
+function previewImage() {
+    document.getElementById("image-preview").style.display = "block";
+    var oFReader = new FileReader();
+     oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
 
-        var fd = new FormData();
-        var files = $('#file')[0].files[0];
-        fd.append('file',files);
-
-        // AJAX request
-        $.ajax({
-            url: 'pages/ajaxfile.php',
-            type: 'post',
-            data: fd,
-            contentType: false,
-            processData: false,
-            success: function(response){
-                if(response != 0){
-                    // Show image preview
-                    $('#preview').append("<img src='"+response+"' width='160' height='160' style='display: inline-block;'>");
-                }else{
-                    alert('file not uploaded');
-                }
-            }
-        });
-    });
-});
+    oFReader.onload = function(oFREvent) {
+      document.getElementById("image-preview").src = oFREvent.target.result;
+    };
+  };
 </script>
+
 
 
 <script>
