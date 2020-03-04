@@ -39,8 +39,7 @@
          }
         }
 
-    // $level = 2;
-    // $opsi = "pendidikan";
+  
 
     if(!isset($errMSG))
     {
