@@ -65,15 +65,15 @@
 }
 
 if(isset($_POST['Edit'])) { 
-      $id = $_POST['id'];
-      $nama = $_POST['nama']; 
-      $id_anggota = $_POST['id_anggota'];
-      $tanggal_bukti = $_POST['tanggal_bukti'];  
-      $nama_keterampilan = $_POST['nama_keterampilan'];  
-      $keterangan = $_POST['keterangan']; 
+  $id = $_POST['id'];
+  $nama = $_POST['nama']; 
+  $id_anggota = $_POST['id_anggota'];
+  $tanggal_bukti = $_POST['tanggal_bukti'];  
+  $nama_keterampilan = $_POST['nama_keterampilan'];  
+  $keterangan = $_POST['keterangan']; 
     $file_bukti_lama = $_POST['file_bukti_lama'];
     $userpic = $_POST['file_bukti_lama'];
-    $status = $_POST['status']; 
+    $status = $_POST['status'];  
 
     $imgFile = $_FILES['file_bukti']['name'];
     $tmp_dir = $_FILES['file_bukti']['tmp_name'];
@@ -143,8 +143,8 @@ if(isset($_POST['Hapus'])) {
         $stmt->bindParam(1, $id); 
        $stmt->execute();
        if($stmt) { 
-        if(file_exists("uploads/keterampilan/".$userpic)) {
-          unlink("uploads/keterampilan/".$userpic);
+        if(file_exists("uploads/pengalaman/".$userpic)) {
+          unlink("uploads/pengalaman/".$userpic);
          }
     ?>
    <div class="alert alert-success" role="alert">
@@ -327,14 +327,6 @@ if(isset($_POST['Non-Aktif'])) {
                             <label for="file_bukti" class="col-form-label">File Bukti</label> 
                           <input type="file" class="form-control" id="image-source" name="file_bukti" onchange="previewImage();"/>
                           </div>
-                          <div class="col-md-6">
-                            <label for="status" class="col-form-label">Status Verifikasi</label>
-                            <select class="form-control" name="status">
-                            <option value="1" <?php if($status==1) {echo "selected";}?> > Aktif</option>
-                            <option value="0" <?php if($status==0) {echo "selected";}?> > Pending</option>
-                            </select>
-                          </div>
-                          </div> 
                           <div class="form-group">
                           <center>
                             <img id="image-preview" alt="image preview"/>
@@ -344,7 +336,14 @@ if(isset($_POST['Non-Aktif'])) {
                             <label for="keterangan" class="col-form-label">Keterangan</label>
                             <textarea class="form-control" id="keterangan" name="keterangan"> <?php echo $keterangan; ?> </textarea>
                           </div>
-                          
+                          <div class="col-md-6">
+                            <label for="status" class="col-form-label">Status Verifikasi</label>
+                            <select class="form-control" name="status">
+                            <option value="1" <?php if($status==1) {echo "selected";}?> > Aktif</option>
+                            <option value="0" <?php if($status==0) {echo "selected";}?> > Pending</option>
+                            </select>
+                          </div>
+                          </div> 
                         <div class="modal-footer">  
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                           <button type="submit" name="Edit" class="btn btn-success">Simpan</button>
@@ -455,6 +454,7 @@ if(isset($_POST['Non-Aktif'])) {
           <div class="col-md-8">
             <label for="id_anggota" class="col-form-label">Nama Anggota</label>
            <select class="form-control selectpicker" name="id_anggota" data-live-search="true">
+           <option value="">--Pilih Nama Anggota--</option>
            <?php 
             $mySql = "SELECT anggota.* FROM anggota ORDER BY updated_at DESC ";
             $database = new Database();
