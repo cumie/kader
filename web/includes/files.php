@@ -35,6 +35,10 @@ if(isset($_GET['p'])){
                 if(!file_exists ('pages/pengalaman.php')) die ($nopage);
 				include "pages/pengalaman.php";
 				break;
+			case 'kategorisoal':
+                if(!file_exists ('pages/kategorisoal.php')) die ($nopage);
+				include "pages/kategorisoal.php";
+				break;
 		if(!file_exists ('pages/keterampilan.php')) die ($nopage);
 				include "pages/keterampilan.php";
 				break;
