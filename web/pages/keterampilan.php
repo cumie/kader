@@ -14,7 +14,7 @@
         }
         else
         {
-         $upload_dir = 'uploads/pendidikan/'; // upload directory
+         $upload_dir = 'uploads/keterampilan/'; // upload directory
 
          $imgExt = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION)); // get image extension
 
