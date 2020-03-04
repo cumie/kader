@@ -42,8 +42,8 @@
         <a class="nav-link" href="test">
           <i class="fas fa-fw fa-table"></i>
           <span>Test</span></a>
-      </li> 
-      
+      </li>
+
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="pengalaman">
@@ -57,7 +57,31 @@
           <span>Keterampilan</span></a>
       </li>
 
-       
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Master
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaster" aria-expanded="true" aria-controls="collapseMaster">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Master Data</span>
+        </a>
+        <div id="collapseMaster" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+            <a class="collapse-item" href="kategorisoal">Kategori Soal</a>
+            <a class="collapse-item" href="cards.html">Cards</a>
+          </div>
+        </div>
+      </li>
+
+
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -139,7 +163,7 @@
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
       </li>
-	
+
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
