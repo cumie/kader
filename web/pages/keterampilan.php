@@ -64,15 +64,16 @@
     } else { echo "Gagal simpan!"; }
 }
 
-if(isset($_POST['Edit'])) {
-    $id = $_POST['id'];
-    $id_anggota = $_POST['id_anggota'];
-    $nama_pendidikan = $_POST['nama_pendidikan'];
-    $jenjang_pendidikan = $_POST['jenjang_pendidikan'];
-    $tanggal_ijazah = $_POST['tanggal_ijazah'];
+if(isset($_POST['Edit'])) { 
+      $id = $_POST['id'];
+      $nama = $_POST['nama']; 
+      $id_anggota = $_POST['id_anggota'];
+      $tanggal_bukti = $_POST['tanggal_bukti'];  
+      $nama_keterampilan = $_POST['nama_keterampilan'];  
+      $keterangan = $_POST['keterangan']; 
     $file_bukti_lama = $_POST['file_bukti_lama'];
     $userpic = $_POST['file_bukti_lama'];
-    $keterangan = $_POST['keterangan'];
+    $status = $_POST['status']; 
 
     $imgFile = $_FILES['file_bukti']['name'];
     $tmp_dir = $_FILES['file_bukti']['tmp_name'];
