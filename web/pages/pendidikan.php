@@ -6,12 +6,46 @@
       $nama_pendidikan = $_POST['nama_pendidikan'];
       $jenjang_pendidikan = $_POST['jenjang_pendidikan'];
       $tanggal_ijazah = $_POST['tanggal_ijazah'];
-      $file_bukti = $_POST['file_bukti'];
-      // $foto = $_FILES['file']['name'];
       $keterangan = $_POST['keterangan'];
-      $level = 2;
-      $opsi = "pendidikan";
+        $imgFile = $_FILES['file_bukti']['name'];
+        $tmp_dir = $_FILES['file_bukti']['tmp_name'];
+        $imgSize = $_FILES['file_bukti']['size'];
 
+        if(empty($imgFile)){
+           $errMSG = "Please Select Image File.";
+          }
+          else
+          {
+           $upload_dir = 'uploads/pendidikan/'; // upload directory
+
+           $imgExt = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION)); // get image extension
+
+           // valid image extensions
+           $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
+
+           // rename uploading image
+           $userpic = $id_anggota."_".date('ymd')."_".generateRandomString(4).".".$imgExt;
+
+           // allow valid image file formats
+           if(in_array($imgExt, $valid_extensions)){
+            // Check file size '5MB'
+            if($imgSize < 5000000)    {
+             move_uploaded_file($tmp_dir,$upload_dir.$userpic);
+            }
+            else{
+             $errMSG = "Sorry, your file is too large.";
+            }
+           }
+           else{
+            $errMSG = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+           }
+          }
+
+      // $level = 2;
+      // $opsi = "pendidikan";
+
+      if(!isset($errMSG))
+      {
         $mySql = "INSERT INTO `pendidikan`(`status`, `id_anggota`, `tanggal_ijazah`, `nama_pendidikan`, `jenjang_pendidikan`, `keterangan`, `file_bukti`) VALUES ( '1',?,?,?,?,?,? ) ";
         $database = new Database();
         $db = $database->getConnection();
@@ -21,7 +55,7 @@
         $stmt->bindParam(3, $nama_pendidikan);
         $stmt->bindParam(4, $jenjang_pendidikan);
         $stmt->bindParam(5, $keterangan);
-        $stmt->bindParam(6, $file_bukti);
+        $stmt->bindParam(6, $userpic);
         $stmt->execute();
         if($stmt) {
            ?>
@@ -31,6 +65,7 @@
         </div>
 <?php
         }
+      } else { echo "Gagal simpan!"; }
   }
 
 if(isset($_POST['Edit'])) {
@@ -39,8 +74,41 @@ if(isset($_POST['Edit'])) {
       $nama_pendidikan = $_POST['nama_pendidikan'];
       $jenjang_pendidikan = $_POST['jenjang_pendidikan'];
       $tanggal_ijazah = $_POST['tanggal_ijazah'];
-      $file_bukti = $_POST['file_bukti']['name'];
+      $file_bukti_lama = $_POST['file_bukti_lama'];
+      $userpic = $_POST['file_bukti_lama'];
       $keterangan = $_POST['keterangan'];
+
+      $imgFile = $_FILES['file_bukti']['name'];
+      $tmp_dir = $_FILES['file_bukti']['tmp_name'];
+      $imgSize = $_FILES['file_bukti']['size'];
+
+      if($imgFile){
+         $upload_dir = 'uploads/pendidikan/'; // upload directory
+
+         $imgExt = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION)); // get image extension
+
+         // valid image extensions
+         $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
+
+         // file lawas
+         $file_nama_ja = explode(".",$file_bukti_lama);
+         // rename uploading image
+         $userpic = $file_nama_ja[0].".".$imgExt;
+
+         // allow valid image file formats
+         if(in_array($imgExt, $valid_extensions)){
+          // Check file size '5MB'
+          if($imgSize < 5000000)    {
+           move_uploaded_file($tmp_dir,$upload_dir.$userpic);
+          }
+          else{
+           $errMSG = "Sorry, your file is too large.";
+          }
+         }
+         else{
+          $errMSG = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+         }
+         }
 
 
         $mySql = "UPDATE  `pendidikan` SET `id_anggota`=?, `tanggal_ijazah`=?, `nama_pendidikan`=?, `jenjang_pendidikan`=?, `keterangan`=?, `file_bukti`=? WHERE id=? ";
@@ -52,7 +120,7 @@ if(isset($_POST['Edit'])) {
         $stmt->bindParam(3, $nama_pendidikan);
         $stmt->bindParam(4, $jenjang_pendidikan);
         $stmt->bindParam(5, $keterangan);
-        $stmt->bindParam(6, $file_bukti);
+        $stmt->bindParam(6, $userpic);
         $stmt->bindParam(7, $id);
        $stmt->execute();
 
@@ -68,6 +136,9 @@ if(isset($_POST['Edit'])) {
 
 if(isset($_POST['Hapus'])) {
       $id = $_POST['id'];
+      $id_anggota = $_POST['id_anggota'];
+      $nama = $_POST['nama'];
+      $userpic = $_POST['file_bukti_lama'];
 
       $Sql = "DELETE FROM pendidikan WHERE id=? ";
         $database = new Database();
@@ -76,11 +147,14 @@ if(isset($_POST['Hapus'])) {
         $stmt->bindParam(1, $id);
        $stmt->execute();
 
-       if($stmt) {
+      if($stmt) {
+        if(file_exists("uploads/pengalaman/".$userpic)) {
+          unlink("uploads/pengalaman/".$userpic);
+        }
     ?>
-    <div class="alert alert-success" role="alert">
+   <div class="alert alert-success" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <strong>Hapus Data Pendidikan Berhasil!</strong>
+      <strong>Hapus Data Berhasil! </strong> pendidikan dengan ID = <?php echo $id; ?>, oleh anggota  <?php echo $nama; ?> telah dihapus!
     </div>
 <?php
     }
@@ -196,7 +270,7 @@ if(isset($_POST['Hapus'])) {
                       </td>
                       <td><?php echo $nama_pendidikan; ?></td>
                       <td><?php echo $jenjang_pendidikan; ?></td>
-                      <td><?php echo $file_bukti; ?></td>
+                      <td align="center"><a href="uploads/pendidikan/<?php echo $file_bukti; ?>" target="_blank"><img src="uploads/pendidikan/<?php echo $file_bukti ? $file_bukti : 'noimage.png'; ?>" width="50px"></a></td>
                       <td><?php echo $statusx; ?></td>
                       <td>
                       <?php if($status==1) { ?>
@@ -268,12 +342,14 @@ if(isset($_POST['Hapus'])) {
                                 <div class="form-group row">
                                   <div class="col-md-12">
                                     <label for="file_bukti" class="col-form-label">File Bukti</label>
-                                    <!-- Upload File -->
-                                    Select file : <input type='file' name='file_bukti' id='file_bukti' class='form-control' ><br>
-                                    <input type='button' class='btn btn-info' value='Upload' id='btn_upload'>
-
-                                    <!-- Preview-->
-                                    <div id='preview'></div>
+                                  <input type="file" class="form-control" id="image-source" name="file_bukti" onchange="previewImage();"/>
+                                  </div>
+                                </div>
+                                <div class="form-group-row">
+                                  <div class="col-md-12">
+                                    <center>
+                                      <img id="image-preview" alt="image preview"/>
+                                    </center>
                                   </div>
                                 </div>
 
@@ -309,6 +385,7 @@ if(isset($_POST['Hapus'])) {
                           <input type="hidden" name="id" value="<?php echo $id; ?>">
                           <input type="hidden" name="id_anggota" value="<?php echo $id_anggota; ?>">
                           <input type="hidden" name="nama" value="<?php echo $nama; ?>">
+                          <input type="hidden" name="file_bukti_lama" value="<?php echo $file_bukti; ?>">
                           <div class="form-group">
                             Yakin menghapus data ini? baik data pendidikan dan data lain yang berkaitan dengan pendidikan ini akan dihapus?
                           </div>
@@ -371,7 +448,6 @@ if(isset($_POST['Hapus'])) {
 <!-- batas -->
           <!-- Tambah pendidikan Modal-->
           <div class="modal fade" id="pendidikanModal" tabindex="-1" role="dialog" aria-labelledby="anggotaModalLabel" aria-hidden="true">
-            <form role="form" action="" method="post" enctype="multipart/form-data">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -381,6 +457,7 @@ if(isset($_POST['Hapus'])) {
                     </button>
                   </div>
                   <div class="modal-body"><p>Tambahkan data Anggota, data anggota akan langsung aktif dan dapat mengakses sesuai username dan password terinput.</p>
+                <form role="form" action="" method="post" enctype="multipart/form-data">
                 <div class="form-group row">
                   <div class="col-md-6">
                     <label for="id_anggota" class="col-form-label">Id Anggota</label>
@@ -417,12 +494,14 @@ if(isset($_POST['Hapus'])) {
                 <div class="form-group row">
                   <div class="col-md-12">
                     <label for="file_bukti" class="col-form-label">File Bukti</label>
-                    <!-- Upload File -->
-                    Select file : <input type='file' name='file_bukti' id='file_bukti' class='form-control' ><br>
-                    <input type='button' class='btn btn-info' value='Upload' id='btn_upload'>
-
-                    <!-- Preview-->
-                    <div id='preview'></div>
+                    <input type="file" class="form-control" id="image-source" name="file_bukti" onchange="previewImage();"/>
+                  </div>
+                </div>
+                <div class="form-group-row">
+                  <div class="col-md-12">
+                    <center>
+                      <img id="image-preview" alt="image preview"/>
+                    </center>
                   </div>
                 </div>
 
@@ -444,31 +523,15 @@ if(isset($_POST['Hapus'])) {
 
           <!-- Script -->
           <script type='text/javascript'>
-          $(document).ready(function(){
-              $('#btn_upload').click(function(){
+          function previewImage() {
+              document.getElementById("image-preview").style.display = "block";
+              var oFReader = new FileReader();
+               oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
 
-                  var fd = new FormData();
-                  var files = $('#file')[0].files[0];
-                  fd.append('file',files);
-
-                  // AJAX request
-                  $.ajax({
-                      url: 'pages/ajaxfile.php',
-                      type: 'post',
-                      data: fd,
-                      contentType: false,
-                      processData: false,
-                      success: function(response){
-                          if(response != 0){
-                              // Show image preview
-                              $('#preview').append("<img src='"+response+"' width='160' height='160' style='display: inline-block;'>");
-                          }else{
-                              alert('file not uploaded');
-                          }
-                      }
-                  });
-              });
-          });
+              oFReader.onload = function(oFREvent) {
+                document.getElementById("image-preview").src = oFREvent.target.result;
+              };
+            };
           </script>
 
 
