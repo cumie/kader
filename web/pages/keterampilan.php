@@ -439,7 +439,7 @@ $maxage = date('Y-m-d', strtotime('- 50 year', $now));
 ?>
 <!-- Tambah Anggota Modal-->
 <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="anggotaModalLabel" aria-hidden="true">
-  <form method="post" action="" >
+  <form role="form" action="" method="post" enctype="multipart/form-data">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -449,73 +449,72 @@ $maxage = date('Y-m-d', strtotime('- 50 year', $now));
           </button>
         </div>
         <div class="modal-body"><p>Tambahkan data Keterampilan, data Keterampilan yang diinput pada form ini akan langsung berstatus aktif.</p>
-          <form role="form" action="" method="post" enctype="multipart/form-data">
-            <div class="form-group row">
-              <div class="col-md-8">
-                <label for="id_anggota" class="col-form-label">Nama Anggota</label>
-                <select class="form-control selectpicker" name="id_anggota" data-live-search="true">
-                  <option value="">--Pilih Nama Anggota--</option>
-                  <?php
-                  $mySql = "SELECT anggota.* FROM anggota ORDER BY updated_at DESC ";
-                  $database = new Database();
-                  $db = $database->getConnection();
-                  $stmt = $db->prepare($mySql);
-                  $stmt->execute();
-                  while ($rowx = $stmt->fetch(PDO::FETCH_ASSOC)){
-                    extract($rowx);
-                    ?>
-                    <option data-tokens="<?php echo $id; ?>" value="<?php echo $id; ?>"><?php echo $nama; ?></option>
-                  <?php } ?>
-                </select>
+          <div class="form-group row">
+            <div class="col-md-8">
+              <label for="id_anggota" class="col-form-label">Nama Anggota</label>
+              <select class="form-control selectpicker" name="id_anggota" data-live-search="true">
+                <option value="">--Pilih Nama Anggota--</option>
+                <?php
+                $mySql = "SELECT anggota.* FROM anggota ORDER BY updated_at DESC ";
+                $database = new Database();
+                $db = $database->getConnection();
+                $stmt = $db->prepare($mySql);
+                $stmt->execute();
+                while ($rowx = $stmt->fetch(PDO::FETCH_ASSOC)){
+                  extract($rowx);
+                  ?>
+                  <option data-tokens="<?php echo $id; ?>" value="<?php echo $id; ?>"><?php echo $nama; ?></option>
+                <?php } ?>
+              </select>
 
-              </div>
-              <div class="col-md-4">
-                <label for="tanggal_bukti" class="col-form-label">Tanggal Bukti Keterampilan</label>
-                <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="tanggal_bukti" name="tanggal_bukti">
-              </div>
             </div>
-            <div class="form-group row">
-              <div class="col-md-8">
-                <label for="nama_keterampilan" class="col-form-label">Nama Keterampilan</label>
-                <input type="text" class="form-control" id="nama_keterampilan" name="nama_keterampilan">
-              </div>
-              <div class="col-md-4">
-                <label for="file_bukti" class="col-form-label">File Bukti</label>
-                <input type="file" class="form-control" id="image-source" name="file_bukti" onchange="previewImage();"/>
-              </div>
+            <div class="col-md-4">
+              <label for="tanggal_bukti" class="col-form-label">Tanggal Bukti Keterampilan</label>
+              <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="tanggal_bukti" name="tanggal_bukti">
             </div>
-            <div class="form-group">
-              <center>
-                <img id="image-preview" alt="image preview"/>
-              </center>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-8">
+              <label for="nama_keterampilan" class="col-form-label">Nama Keterampilan</label>
+              <input type="text" class="form-control" id="nama_keterampilan" name="nama_keterampilan">
             </div>
-            <div class="form-group">
-              <label for="keterangan" class="col-form-label">Keterangan</label>
-              <textarea class="form-control" id="keterangan" name="keterangan"> <?php echo $keterangan; ?> </textarea>
+            <div class="col-md-4">
+              <label for="file_bukti" class="col-form-label">File Bukti</label>
+              <input type="file" class="form-control" id="image-source" name="file_bukti" onchange="previewImage();"/>
             </div>
+          </div>
+          <div class="form-group">
+            <center>
+              <img id="image-preview" alt="image preview"/>
+            </center>
+          </div>
+          <div class="form-group">
+            <label for="keterangan" class="col-form-label">Keterangan</label>
+            <textarea class="form-control" id="keterangan" name="keterangan"> <?php echo $keterangan; ?> </textarea>
+          </div>
 
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-            <button class="btn btn-success" name="Simpan" type="submit" >Simpan</button>
-          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+          <button class="btn btn-success" name="Simpan" type="submit" >Simpan</button>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
+</div>
 
 
-  <!-- Script -->
-  <script type='text/javascript'>
-  function previewImage() {
-    document.getElementById("image-preview").style.display = "block";
-    var oFReader = new FileReader();
-    oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
+<!-- Script -->
+<script type='text/javascript'>
+function previewImage() {
+  document.getElementById("image-preview").style.display = "block";
+  var oFReader = new FileReader();
+  oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
 
-    oFReader.onload = function(oFREvent) {
-      document.getElementById("image-preview").src = oFREvent.target.result;
-    };
+  oFReader.onload = function(oFREvent) {
+    document.getElementById("image-preview").src = oFREvent.target.result;
   };
+};
 </script>
 
 
