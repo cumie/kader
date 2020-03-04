@@ -1,48 +1,12 @@
-<?php include "includes/conf.php"; 
+<?php include "includes/conf.php";
 
-  if(isset($_POST['Simpan'])) { 
+  if(isset($_POST['Simpan'])) {
       $id_anggota = $_POST['id_anggota'];
-      $tanggal_bukti = $_POST['tanggal_bukti'];  
-      $nama_kegiatan = $_POST['nama_kegiatan'];  
-      $keterangan = $_POST['keterangan']; 
-      // $file_bukti = $_POST['file_bukti'];   
-      
-        $imgFile = $_FILES['file_bukti']['name'];
-        $tmp_dir = $_FILES['file_bukti']['tmp_name'];
-        $imgSize = $_FILES['file_bukti']['size'];
-        
-        if(empty($imgFile)){
-           $errMSG = "Please Select Image File.";
-          }
-          else
-          {
-           $upload_dir = 'uploads/pengalaman/'; // upload directory
-         
-           $imgExt = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION)); // get image extension
-          
-           // valid image extensions
-           $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
-          
-           // rename uploading image
-           $userpic = $id_anggota."_".date('ymd')."_".generateRandomString(4).".".$imgExt;
-            
-           // allow valid image file formats
-           if(in_array($imgExt, $valid_extensions)){   
-            // Check file size '5MB'
-            if($imgSize < 5000000)    {
-             move_uploaded_file($tmp_dir,$upload_dir.$userpic);
-            }
-            else{
-             $errMSG = "Sorry, your file is too large.";
-            }
-           }
-           else{
-            $errMSG = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";  
-           }
-          } 
-        if(!isset($errMSG))
-        {
-        
+      $tanggal_bukti = $_POST['tanggal_bukti'];
+      $nama_kegiatan = $_POST['nama_kegiatan'];
+      $keterangan = $_POST['keterangan'];
+      $file_bukti = $_POST['file_bukti'];
+
         $mySql = "INSERT INTO `pengalaman`(`status`, `id_anggota`, `tanggal_bukti`, `nama_kegiatan`, `keterangan`, `file_bukti`) VALUES ('1',?,?,?,?,?) ";
         $database = new Database();
         $db = $database->getConnection();
@@ -51,162 +15,123 @@
         $stmt->bindParam(2, $tanggal_bukti);
         $stmt->bindParam(3, $nama_kegiatan);
         $stmt->bindParam(4, $keterangan);
-        $stmt->bindParam(5, $userpic); 
+        $stmt->bindParam(5, $file_bukti);
         $stmt->execute();
-        if($stmt) { 
+        if($stmt) {
            ?>
            <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Tambah Data Berhasil!</strong> Pengalaman  <?php echo $nama_kegiatan; ?> telah ditambahkan!
 </div>
-<?php 
-        } 
-        } else { echo "Gagal simpan!"; }
-  } 
+<?php
+        }
+  }
 
-if(isset($_POST['Edit'])) { 
+if(isset($_POST['Edit'])) {
       $id = $_POST['id'];
-      $nama = $_POST['nama']; 
+      $nama = $_POST['nama'];
       $id_anggota = $_POST['id_anggota'];
-      $tanggal_bukti = $_POST['tanggal_bukti'];  
-      $nama_kegiatan = $_POST['nama_kegiatan'];  
-      $keterangan = $_POST['keterangan']; 
-      $file_bukti_lama = $_POST['file_bukti_lama']; 
-      $userpic = $_POST['file_bukti_lama']; 
-      $status = $_POST['status'];  
-      
-        $imgFile = $_FILES['file_bukti']['name'];
-        $tmp_dir = $_FILES['file_bukti']['tmp_name'];
-        $imgSize = $_FILES['file_bukti']['size'];
-        
-        if($imgFile){ 
-           $upload_dir = 'uploads/pengalaman/'; // upload directory
-         
-           $imgExt = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION)); // get image extension
-          
-           // valid image extensions
-           $valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
-          
-           // file lawas
-           $file_nama_ja = explode(".",$file_bukti_lama);
-           // rename uploading image
-           $userpic = $file_nama_ja[0].".".$imgExt;
-            
-           // allow valid image file formats
-           if(in_array($imgExt, $valid_extensions)){   
-            // Check file size '5MB'
-            if($imgSize < 5000000)    {
-             move_uploaded_file($tmp_dir,$upload_dir.$userpic);
-            }
-            else{
-             $errMSG = "Sorry, your file is too large.";
-            }
-           }
-           else{
-            $errMSG = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";  
-           }  
-           }  
-      
+      $tanggal_bukti = $_POST['tanggal_bukti'];
+      $nama_kegiatan = $_POST['nama_kegiatan'];
+      $keterangan = $_POST['keterangan'];
+      $file_bukti = $_POST['file_bukti'];
+      $status = $_POST['status'];
+
+
         $mySql = "UPDATE  pengalaman SET  tanggal_bukti=?, nama_kegiatan=?, keterangan=?, file_bukti=?, status=? WHERE id=? ";
         $database = new Database();
         $db = $database->getConnection();
         $stmt = $db->prepare($mySql);
         $stmt->bindParam(1, $tanggal_bukti);
-        $stmt->bindParam(2, $nama_kegiatan); 
+        $stmt->bindParam(2, $nama_kegiatan);
         $stmt->bindParam(3, $keterangan);
-        $stmt->bindParam(4, $userpic);
-        $stmt->bindParam(5, $status); 
-        $stmt->bindParam(6, $id); 
+        $stmt->bindParam(4, $file_bukti);
+        $stmt->bindParam(5, $status);
+        $stmt->bindParam(6, $id);
        $stmt->execute();
-   
-    if($stmt) { 
+
+    if($stmt) {
    ?>
    <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Edit Data Berhasil!</strong> Pengalaman dengan ID = <?php echo $id; ?>, oleh anggota  <?php echo $nama; ?> telah dirubah!
 </div>
-<?php 
-    } 
+<?php
+    }
   }
 
-if(isset($_POST['Hapus'])) {  
-      $id = $_POST['id']; 
-      $id_anggota = $_POST['id_anggota']; 
-      $nama = $_POST['nama'];  
-      $userpic = $_POST['file_bukti_lama'];  
-      
+if(isset($_POST['Hapus'])) {
+      $id = $_POST['id'];
+      $id_anggota = $_POST['id_anggota'];
+      $nama = $_POST['nama'];
+
       $mySql = "DELETE FROM pengalaman WHERE id=? ";
         $database = new Database();
         $db = $database->getConnection();
         $stmt = $db->prepare($mySql);
-        $stmt->bindParam(1, $id); 
+        $stmt->bindParam(1, $id);
        $stmt->execute();
-       if($stmt) { 
-      if(file_exists("uploads/pengalaman/".$userpic)) {
-       unlink("uploads/pengalaman/".$userpic);
-      }
+       if($stmt) {
     ?>
    <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <strong>Hapus Data Berhasil! </strong> pengalaman dengan ID = <?php echo $id; ?>, oleh anggota  <?php echo $nama; ?> telah dihapus!
+  <strong>Hapus Data Berhasil!</strong> pengalaman dengan ID = <?php echo $id; ?>, oleh anggota  <?php echo $nama; ?> telah dihapus!
 </div>
-<?php 
+<?php
     }
   }
-  
-if(isset($_POST['Aktif'])) {  
-      $id = $_POST['id']; 
-      $id_anggota = $_POST['id_anggota']; 
-      $nama = $_POST['nama'];  
-      
+
+if(isset($_POST['Aktif'])) {
+      $id = $_POST['id'];
+      $id_anggota = $_POST['id_anggota'];
+      $nama = $_POST['nama'];
+
       $mySql = "UPDATE pengalaman SET status=1 WHERE id=? ";
         $database = new Database();
         $db = $database->getConnection();
         $stmt = $db->prepare($mySql);
-        $stmt->bindParam(1, $id); 
+        $stmt->bindParam(1, $id);
        $stmt->execute();
-       if($stmt) { 
-      
+       if($stmt) {
+
     ?>
    <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Ubah Status Berhasil!</strong> Pengalaman oleh <?php echo $nama; ?> telah di Aktifkan!
 </div>
-<?php 
-    }  
-    }  
-    
-if(isset($_POST['Non-Aktif'])) {  
-      $id = $_POST['id']; 
-      $id_anggota = $_POST['id_anggota']; 
-      $nama = $_POST['nama'];  
-      
+<?php
+    }
+    }
+
+if(isset($_POST['Non-Aktif'])) {
+      $id = $_POST['id'];
+      $id_anggota = $_POST['id_anggota'];
+      $nama = $_POST['nama'];
+
       $mySql = "UPDATE pengalaman SET status=0 WHERE id=? ";
         $database = new Database();
         $db = $database->getConnection();
         $stmt = $db->prepare($mySql);
-        $stmt->bindParam(1, $id); 
+        $stmt->bindParam(1, $id);
        $stmt->execute();
-       if($stmt) { 
-      
+       if($stmt) {
+
     ?>
    <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Ubah Status Berhasil!</strong> Pengalaman oleh <?php echo $nama; ?> telah di Non-Aktifkan!
 </div>
-<?php 
-    } 
-    } 
+<?php
+    }
+    }
 ?>
-           
+
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Data Pengalaman</h1>
       <div class="row">
         <div class="col-md-10">
-         <p class="mb-4">Data Pengalaman merupakan data pengalaman dari seluruh anggota / kader yang ada pada aplikasi ini. Data yang pengalaman perlu proses verifikasi admin untuk dapat diterima sebagai pengalaman.</p> 
-         
-         <p> 
+         <p class="mb-4">Data Pengalaman merupakan data pengalaman dari seluruh anggota / kader yang ada pada aplikasi ini. Data yang pengalaman perlu proses verifikasi admin untuk dapat diterima sebagai pengalaman.</p>
           </div>
            <div class="col-md-2">
           <a href="#" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#tambahModal">
@@ -218,12 +143,12 @@ if(isset($_POST['Non-Aktif'])) {
         </div>
       </div>
 
-<?php include "includes/badge1.php"; ?> 
- 
- 
+<?php include "includes/badge1.php"; ?>
+
+
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
-            
+
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -239,17 +164,17 @@ if(isset($_POST['Non-Aktif'])) {
                       <th>Opsi</th>
                       </tr>
                     </tr>
-                  </thead> 
+                  </thead>
                   <tbody>
-                  
-                  <?php 
+
+                  <?php
 				 // echo $id;
 				$Sql2 = "SELECT pengalaman.*, anggota.id AS id_anggota, anggota.nama FROM pengalaman LEFT JOIN anggota ON anggota.id=pengalaman.id_anggota ORDER BY updated_at DESC ";
 				$database = new Database();
 				$db = $database->getConnection();
 				$stmt2 = $db->prepare($Sql2);
 				// $stmt2->bindParam(1, $id);
-				$stmt2->execute();  
+				$stmt2->execute();
 				$num = $stmt2->rowCount();
 				$no  = 1;
 				if($num==0){
@@ -260,59 +185,58 @@ if(isset($_POST['Non-Aktif'])) {
 					<?php
 				} else {
 					while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
-					extract($row2); 
-					if($status==1) { $statusx = 'Aktif';} 
+					extract($row2);
+					if($status==1) { $statusx = 'Aktif';}
                     else { $statusx ='Pending';}
-				?> 
+				?>
                     <tr>
-					<td><?php echo $no++; ?></td>  
+					<td><?php echo $no++; ?></td>
 					<td>
                       <form method="POST" action="anggotadetail">
                       <input type="hidden" name="id" value="<?php echo $id_anggota; ?>" >
-                        <button type="submit"  class="btn btn-link mt-n2 mb-n4 text-left"><?php echo $nama; ?></a></button>
+                        <button type="submit"  class="btn btn-link mt-n4 mb-n4 text-left"><?php echo $nama; ?></a></button>
                       </form>
-                    </td>  
-					<td><?php echo $nama_kegiatan; ?></td>  
-					<td><?php echo $keterangan; ?></td>  
-					<td><?php echo indonesiaTgl($tanggal_bukti); ?></td>  
-					<td align="center"><a href="uploads/pengalaman/<?php echo $file_bukti; ?>" target="_blank"><img src="uploads/pengalaman/<?php echo $file_bukti ? $file_bukti : 'noimage.png'; ?>" width="50px"></a></td> 
-					<td><?php echo $statusx; ?></td>   
+                    </td>
+					<td><?php echo $nama_kegiatan; ?></td>
+					<td><?php echo $keterangan; ?></td>
+					<td><?php echo indonesiaTgl($tanggal_bukti); ?></td>
+					<td align="center"><a href="uploads/dokumen/<?php echo $file_bukti; ?>" target="_blank"><i class="fas fa-file"></i></a></td>
+					<td><?php echo $statusx; ?></td>
                     <td>
                     <?php if($status==1) { ?>
                        <a href="#" type="button" class="btn btn-warning btn-icon-split"  data-toggle="modal" data-target="#verifModal<?php echo $id; ?>">
-						  <span class="icon "><i class="fas fa-times"></i></span> 
-							</a>       
+						  <span class="icon "><i class="fas fa-times"></i></span>
+							</a>
                     <?php } else { ?>
                        <a href="#" type="button" class="btn btn-success btn-icon-split"  data-toggle="modal" data-target="#verifModal<?php echo $id; ?>">
-						  <span class="icon "><i class="fas fa-check"></i></span> 
-							</a>     
+						  <span class="icon "><i class="fas fa-check"></i></span>
+							</a>
                     <?php } ?>
                     <a href="#" type="button" class="btn btn-info btn-icon-split"  data-toggle="modal" data-target="#editModal<?php echo $id; ?>">
-						  <span class="icon "><i class="fas fa-edit"></i></span> 
-							</a>   
-							<a href="#" type="button" class="btn btn-danger btn-icon-split"  data-toggle="modal" data-target="#deleteModal<?php echo $id; ?>"> 
-						  <span class="icon "><i class="fas fa-trash"></i></span> 
+						  <span class="icon "><i class="fas fa-edit"></i></span>
+							</a>
+							<a href="#" type="button" class="btn btn-danger btn-icon-split"  data-toggle="modal" data-target="#deleteModal<?php echo $id; ?>">
+						  <span class="icon "><i class="fas fa-trash"></i></span>
 							</a>
                     </td>
-					</tr>  
-            
-            <!-- spesial edition modal edit --> 
+					</tr>
+
+            <!-- spesial edition modal edit -->
             <div class="modal fade" id="editModal<?php echo $id; ?>" role="dialog">
               <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
-                <div class="modal-content"> 
+                <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="anggotaModalLabel">Update Data Pengalaman <?php echo $nama; ?></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
-                  </div> 
+                  </div>
                   <div class="modal-body">
-                    <form role="form" action="" method="post"  enctype="multipart/form-data"> 
+                    <form role="form" action="" method="post">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        <input type="hidden" name="id_anggota" value="<?php echo $id_anggota; ?>"> 
+                        <input type="hidden" name="id_anggota" value="<?php echo $id_anggota; ?>">
                         <input type="hidden" name="nama" value="<?php echo $nama; ?>">
-                        <input type="hidden" name="file_bukti_lama" value="<?php echo $file_bukti; ?>">
                           <div class="form-group row">
                           <div class="col-md-6">
                             <label for="nama_kegiatan" class="col-form-label">kegiatan</label>
@@ -322,11 +246,11 @@ if(isset($_POST['Non-Aktif'])) {
                             <label for="tanggal_bukti" class="col-form-label">Tanggal kegiatan</label>
                             <input type="date"  value="<?php echo $tanggal_bukti; ?>"  class="form-control" id="tanggal_bukti" name="tanggal_bukti">
                           </div>
-                          </div>  
+                          </div>
                           <div class="form-group row">
                           <div class="col-md-6">
-                            <label for="file_bukti" class="col-form-label">File Bukti</label> 
-                          <input type="file" class="form-control" id="image-source" name="file_bukti" onchange="previewImage();"/>
+                            <label for="file_bukti" class="col-form-label">File Bukti</label>
+                            <input type="file" class="form-control" id="file_bukti" value="<?php echo $file_bukti; ?>" name="file_bukti">
                           </div>
                           <div class="col-md-6">
                             <label for="status" class="col-form-label">Status Verifikasi</label>
@@ -335,21 +259,16 @@ if(isset($_POST['Non-Aktif'])) {
                             <option value="0" <?php if($status==0) {echo "selected";}?> > Pending</option>
                             </select>
                           </div>
-                          </div>   
-                          <div class="form-group">
-                          <center>
-                            <img id="image-preview" alt="image preview"/>
-                          </center>  
-                          </div> 
+                          </div>
                           <div class="form-group">
                             <label for="keterangan" class="col-form-label">Keterangan</label>
                             <input type="text" class="form-control" id="keterangan" value="<?php echo $keterangan; ?>" name="keterangan">
                           </div>
-                          
-                        <div class="modal-footer">  
+
+                        <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                           <button type="submit" name="Edit" class="btn btn-success">Simpan</button>
-                        </div>       
+                        </div>
                       </form>
                   </div>
                 </div>
@@ -360,27 +279,26 @@ if(isset($_POST['Non-Aktif'])) {
             <div class="modal fade" id="deleteModal<?php echo $id; ?>" role="dialog">
               <div class="modal-dialog">
                 <!-- Modal content-->
-                <div class="modal-content"> 
+                <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="anggotaModalLabel">Hapus Data Pengalaman <?php echo $nama; ?></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
-                  </div> 
+                  </div>
                   <div class="modal-body">
-                    <form role="form" action="" method="post"> 
+                    <form role="form" action="" method="post">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <input type="hidden" name="id_anggota" value="<?php echo $id_anggota; ?>">
                         <input type="hidden" name="nama" value="<?php echo $nama; ?>">
-                        <input type="hidden" name="file_bukti_lama" value="<?php echo $file_bukti; ?>">
                         <div class="form-group">
-                          Yakin menghapus data ini? data pengalaman beserta file bukti akan terhapus?      
-                        </div> 
-                        
-                        <div class="modal-footer">  
+                          Yakin menghapus data ini? data pengalaman beserta file bukti akan terhapus?
+                        </div>
+
+                        <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                           <button type="submit" name="Hapus" class="btn btn-success">Hapus</button>
-                        </div>      
+                        </div>
                       </form>
                   </div>
                 </div>
@@ -391,57 +309,57 @@ if(isset($_POST['Non-Aktif'])) {
             <div class="modal fade" id="verifModal<?php echo $id; ?>" role="dialog">
               <div class="modal-dialog">
                 <!-- Modal content-->
-                <div class="modal-content"> 
+                <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="anggotaModalLabel">Verifikasi Data Pengalaman <?php echo $nama; ?></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
-                  </div> 
+                  </div>
                   <div class="modal-body">
-                    <form role="form" action="" method="post"> 
+                    <form role="form" action="" method="post">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <input type="hidden" name="id_anggota" value="<?php echo $id_anggota; ?>">
                         <input type="hidden" name="nama" value="<?php echo $nama; ?>">
                         <div class="form-group">
-                          yakin merubah Status Verifikasi menjadi <?php  if($status==1) { echo "Tidak "; } ?>Aktif?     
-                        </div> 
-                        
-                        <div class="modal-footer">  
+                          yakin merubah Status Verifikasi menjadi <?php  if($status==1) { echo "Tidak "; } ?>Aktif?
+                        </div>
+
+                        <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                          <?php  if($status==0) { 
+                          <?php  if($status==0) {
                           ?>
                           <button type="submit" name="Aktif" class="btn btn-success">Aktifkan</button>
-                         <?php                           
+                         <?php
                           } else { ?>
                           <button type="submit" name="Non-Aktif" class="btn btn-success">Bekukan</button>
                           <?php } ?>
-                        </div>      
+                        </div>
                       </form>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- end delete modal -->
-              
-                    <?php  } 
-                            }                    
-                    ?> 
+            <!-- end verif modal -->
+
+                    <?php  }
+                            }
+                    ?>
                   </tbody>
                 </table>
               </div>
             </div>
-          </div> 
-          
-          
-        <?php  
+          </div>
+
+
+        <?php
             $now = strtotime(date("Y-m-d"));
             $minage = date('Y-m-d', strtotime('- 16 year', $now));
-            $maxage = date('Y-m-d', strtotime('- 50 year', $now)); 
+            $maxage = date('Y-m-d', strtotime('- 50 year', $now));
           ?>
   <!-- Tambah Anggota Modal-->
   <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="anggotaModalLabel" aria-hidden="true">
-  <form method="post" action="" enctype="multipart/form-data">
+  <form method="post" action="" >
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -456,16 +374,16 @@ if(isset($_POST['Non-Aktif'])) {
           <div class="col-md-8">
             <label for="id_anggota" class="col-form-label">Anggota</label>
            <select class="form-control selectpicker" name="id_anggota" data-live-search="true">
-           <?php 
+           <?php
             $mySql = "SELECT anggota.* FROM anggota ORDER BY updated_at DESC ";
             $database = new Database();
             $db = $database->getConnection();
-            $stmt = $db->prepare($mySql); 
-            $stmt->execute(); 
+            $stmt = $db->prepare($mySql);
+            $stmt->execute();
             while ($rowx = $stmt->fetch(PDO::FETCH_ASSOC)){
                     extract($rowx);
-            ?>                        
-            <option data-tokens="<?php echo $id; ?>" value="<?php echo $id; ?>"><?php echo $nama; ?></option> 
+            ?>
+            <option data-tokens="<?php echo $id; ?>" value="<?php echo $id; ?>"><?php echo $nama; ?></option>
             <?php } ?>
           </select>
 
@@ -479,52 +397,62 @@ if(isset($_POST['Non-Aktif'])) {
           <div class="col-md-8">
             <label for="nama_kegiatan" class="col-form-label">Nama kegiatan</label>
             <input type="text" class="form-control" id="nama_kegiatan" name="nama_kegiatan">
-          </div> 
+          </div>
           <div class="col-md-4">
-            <label for="file_bukti" class="col-form-label">File Bukti</label>  
-            <input type="file" class="form-control" id="image-source" name="file_bukti" onchange="previewImage();"/> 
-          </div> 
-          </div> 
+            <label for="file_bukti" class="col-form-label">File Bukti</label>
+            <input type="file" class="form-control" id="file_bukti" name="file_bukti">
+          </div>
+          </div>
           <div class="form-group">
-          <center>
-            <img id="image-preview" alt="image preview"/>
-          </center>  
-          </div>  
-          <div class="form-group"> 
             <label for="keterangan" class="col-form-label">Keterangan</label>
             <input type="text" class="form-control" id="keterangan" name="keterangan">
-          </div>  
-        
+          </div>
+
         </div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button> 
-          <button class="btn btn-success" name="Simpan" type="submit" >Simpan</button> 
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+          <button class="btn btn-success" name="Simpan" type="submit" >Simpan</button>
         </div>
       </div>
     </div>
     </form>
   </div>
 
- 
+
 <!-- Script -->
 <script type='text/javascript'>
-function previewImage() {
-    document.getElementById("image-preview").style.display = "block";
-    var oFReader = new FileReader();
-     oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
+$(document).ready(function(){
+    $('#btn_upload').click(function(){
 
-    oFReader.onload = function(oFREvent) {
-      document.getElementById("image-preview").src = oFREvent.target.result;
-    };
-  };
+        var fd = new FormData();
+        var files = $('#file')[0].files[0];
+        fd.append('file',files);
+
+        // AJAX request
+        $.ajax({
+            url: 'pages/ajaxfile.php',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                if(response != 0){
+                    // Show image preview
+                    $('#preview').append("<img src='"+response+"' width='160' height='160' style='display: inline-block;'>");
+                }else{
+                    alert('file not uploaded');
+                }
+            }
+        });
+    });
+});
 </script>
 
 
 <script>
   window.setTimeout(function() {
     $(".alert").fadeTo(500, 0).slideUp(500, function(){
-        $(this).remove(); 
+        $(this).remove();
     });
 }, 3000);
 </script>
-        

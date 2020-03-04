@@ -11,9 +11,3 @@
 
 #koyo {  
   transition: transform 0.5s; 
-}
-
-#image-preview{
-    display:none;
-    max-width : 400px; 
-}

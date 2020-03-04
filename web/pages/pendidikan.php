@@ -191,7 +191,7 @@ if(isset($_POST['Hapus'])) {
                       <td>
                         <form method="POST" action="anggotadetail">
                         <input type="hidden" name="id" value="<?php echo $id_anggota; ?>" >
-                          <button type="submit"  class="btn btn-link mt-n2 mb-n4 text-left"><?php echo $nama; ?></a></button>
+                          <button type="submit"  class="btn btn-link mt-n4 mb-n4 text-left"><?php echo $nama; ?></a></button>
                         </form>
                       </td>
                       <td><?php echo $nama_pendidikan; ?></td>

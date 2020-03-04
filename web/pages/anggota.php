@@ -264,7 +264,7 @@ if(
                     $fotox ='
                     <form method="POST" action="anggotadetail">
                     <input type="hidden" name="id" value="'.$id.'" >
-                    <button type="submit"  class="btn btn-link mt-n3 mb-n4 "><img src="uploads/avatar/'.$foto.' " width="50px"></a></button>
+                    <button type="submit"  class="btn btn-link mt-n4 mb-n4 "><img src="uploads/avatar/'.$foto.' " width="50px"></a></button>
                     </form>
                     ';
                   }
@@ -275,7 +275,7 @@ if(
                     <td>
                       <form method="POST" action="anggotadetail">
                         <input type="hidden" name="id" value="<?php echo $id; ?>" >
-                        <button type="submit"  class="btn btn-link mt-n1 mb-n4 text-left"><?php echo $nama; ?></a></button>
+                        <button type="submit"  class="btn btn-link mt-n4 mb-n4 text-left"><?php echo $nama; ?></a></button>
                       </form>
                     </td>
                     <td><?php echo $telepon; ?></td>
