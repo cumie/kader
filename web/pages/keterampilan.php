@@ -14,7 +14,7 @@
         }
         else
         {
-         $upload_dir = 'uploads/keterampilan/'; // upload directory
+         $upload_dir = 'uploads/pendidikan/'; // upload directory
 
          $imgExt = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION)); // get image extension
 
@@ -39,23 +39,22 @@
          }
         }
 
-  
 
     if(!isset($errMSG))
     {
-      $mySql = "INSERT INTO `pendidikan`(`status`, `id_anggota`, `tanggal_ijazah`, `nama_pendidikan`, `jenjang_pendidikan`, `keterangan`, `file_bukti`) VALUES ( '1',?,?,?,?,?,? ) ";
+      
+      $mySql = "INSERT INTO `keterampilan`(`status`, `id_anggota`, `tanggal_bukti`, `nama_keterampilan`, `keterangan`, `file_bukti`) VALUES ('1',?,?,?,?,?) ";
       $database = new Database();
       $db = $database->getConnection();
       $stmt = $db->prepare($mySql);
       $stmt->bindParam(1, $id_anggota);
-      $stmt->bindParam(2, $tanggal_ijazah);
-      $stmt->bindParam(3, $nama_pendidikan);
-      $stmt->bindParam(4, $jenjang_pendidikan);
-      $stmt->bindParam(5, $keterangan);
-      $stmt->bindParam(6, $userpic);
+      $stmt->bindParam(2, $tanggal_bukti);
+      $stmt->bindParam(3, $nama_keterampilan);
+      $stmt->bindParam(4, $keterangan);
+      $stmt->bindParam(5, $userpic);
       $stmt->execute();
-      if($stmt) {
-         ?>
+      if($stmt) { 
+        ?>
       <div class="alert alert-success" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Tambah Data Pendidikan Berhasil!</strong>
@@ -307,7 +306,7 @@ if(isset($_POST['Non-Aktif'])) {
                     </button>
                   </div> 
                   <div class="modal-body">
-                    <form role="form" action="" method="post"> 
+                  <form role="form" action="" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <input type="hidden" name="id_anggota" value="<?php echo $id_anggota; ?>"> 
                         <input type="hidden" name="nama" value="<?php echo $nama; ?>">
@@ -450,7 +449,7 @@ if(isset($_POST['Non-Aktif'])) {
           </button>
         </div>
         <div class="modal-body"><p>Tambahkan data Keterampilan, data Keterampilan yang diinput pada form ini akan langsung berstatus aktif.</p>
-           <form>
+        <form role="form" action="" method="post" enctype="multipart/form-data">
           <div class="form-group row">
           <div class="col-md-8">
             <label for="id_anggota" class="col-form-label">Nama Anggota</label>
