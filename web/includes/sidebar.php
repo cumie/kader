@@ -56,6 +56,13 @@
           <i class="fas fa-fw fa-archive"></i>
           <span>Keterampilan</span></a>
       </li>
+	<!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="soal">
+          <i class="fas fa-fw fa-list"></i>
+          <span>Soal</span></a>
+      </li>
+
 
 
       <!-- Divider -->
