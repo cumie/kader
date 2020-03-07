@@ -1,15 +1,15 @@
-<?php include "includes/conf.php"; 
+<?php include "includes/conf.php";
 
-  if(isset($_POST['Simpan'])) { 
+  if(isset($_POST['Simpan'])) {
       $id_kategori = $_POST['id_kategori'];
-      $pertanyaan = $_POST['pertanyaan'];  
-      $a = $_POST['a'];  
+      $pertanyaan = $_POST['pertanyaan'];
+      $a = $_POST['a'];
       $b = $_POST['b'];
       $c = $_POST['c'];
       $d = $_POST['d'];
       $e = $_POST['e'];
       $answer = $_POST['answer'];
-      
+
       $mySql = "INSERT INTO `soal`(`status`, `id_kategori`, `pertanyaan`, `a`, `b`, `c`, `d`, `e`, `answer`) VALUES ('1',?,?,?,?,?,?,?,?) ";
       $database = new Database();
       $db = $database->getConnection();
@@ -23,126 +23,126 @@
       $stmt->bindParam(7, $e);
       $stmt->bindParam(8, $answer);
       $stmt->execute();
-      if($stmt) { 
+      if($stmt) {
         ?>
       <div class="alert alert-success" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Tambah Data Soal Berhasil!</strong>
       </div>
 <?php
-      }
-    } else { echo "Gagal simpan!"; }
+      }else { echo "Gagal simpan!"; }
+    }
 
 
-        if(isset($_POST['Edit'])) { 
+        if(isset($_POST['Edit'])) {
         $id = $_POST['id'];
-        $id_kategori = $_POST['id_kategori']; 
+        $id_kategori = $_POST['id_kategori'];
         $pertanyaan = $_POST['pertanyaan'];
-        $a = $_POST['a'];  
-        $b = $_POST['b'];  
-        $c = $_POST['c']; 
+        $a = $_POST['a'];
+        $b = $_POST['b'];
+        $c = $_POST['c'];
         $d = $_POST['d'];
-        $e = $_POST['e']; 
-        $answer = $_POST['answer']; 
-        $status = $_POST['status'];  
+        $e = $_POST['e'];
+        $answer = $_POST['answer'];
+        $status = $_POST['status'];
 
-        $mySql = "UPDATE  soal SET `pertanyaan=?`, a=?, b=?, c=?, d=?, e=?, answer=?  status=? WHERE id=? ";
+        $mySql = "UPDATE soal SET pertanyaan=?, a=?, b=?, c=?, d=?, e=?, answer=?, status=? WHERE id=? ";
         $database = new Database();
         $db = $database->getConnection();
         $stmt = $db->prepare($mySql);
         $stmt->bindParam(1, $pertanyaan);
-        $stmt->bindParam(2, $a); 
+        $stmt->bindParam(2, $a);
         $stmt->bindParam(3, $b);
         $stmt->bindParam(4, $c);
         $stmt->bindParam(5, $d);
         $stmt->bindParam(6, $e);
         $stmt->bindParam(7, $answer);
-        $stmt->bindParam(8, $status); 
-        $stmt->bindParam(9, $id); 
+        $stmt->bindParam(8, $status);
+        $stmt->bindParam(9, $id);
        $stmt->execute();
-   
-    if($stmt) { 
+
+    if($stmt) {
    ?>
    <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <strong>Edit Soal Berhasil!</strong> 
+  <strong>Edit Soal Berhasil! <?php echo $pertanyaan; ?></strong>
 </div>
-<?php 
-    }
+<?php
+}else { echo "Gagal edit!"; }
   }
 
-if(isset($_POST['Hapus'])) {  
-      $id = $_POST['id']; 
-      $id_kategori = $_POST['id_kategori']; 
-      $kategori = $_POST['kategori'];   
-      
+if(isset($_POST['Hapus'])) {
+      $id = $_POST['id'];
+      $id_kategori = $_POST['id_kategori'];
+      $kategori = $_POST['kategori'];
+
       $mySql = "DELETE FROM soal WHERE id=? ";
         $database = new Database();
         $db = $database->getConnection();
         $stmt = $db->prepare($mySql);
-        $stmt->bindParam(1, $id); 
+        $stmt->bindParam(1, $id);
        $stmt->execute();
-       
+
     ?>
    <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Hapus Data Berhasil!</strong> Soal dengan ID = <?php echo $id; ?>, oleh kategori_soal  <?php echo $kategori; ?> telah dihapus!
 </div>
-<?php 
+<?php
     }
-  
-  
-if(isset($_POST['Aktif'])) {  
-      $id = $_POST['id']; 
-      $id_kategori = $_POST['id_kategori']; 
-      $kategori = $_POST['kategori'];  
-      
+
+
+if(isset($_POST['Aktif'])) {
+      $id = $_POST['id'];
+      $id_kategori = $_POST['id_kategori'];
+      $kategori = $_POST['kategori'];
+
       $mySql = "UPDATE soal SET status=1 WHERE id=? ";
         $database = new Database();
         $db = $database->getConnection();
         $stmt = $db->prepare($mySql);
-        $stmt->bindParam(1, $id); 
+        $stmt->bindParam(1, $id);
        $stmt->execute();
-       if($stmt) { 
-      
+       if($stmt) {
+
     ?>
    <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Ubah Status Berhasil!</strong> Soal oleh <?php echo $kategori; ?> telah di Aktifkan!
 </div>
-<?php 
-    }  
-    }  
-    
-if(isset($_POST['Non-Aktif'])) {  
-      $id = $_POST['id']; 
-      $id_kategori = $_POST['id_kategori']; 
-      $kategori = $_POST['kategori'];  
-      
+<?php
+    }
+    }
+
+if(isset($_POST['Non-Aktif'])) {
+      $id = $_POST['id'];
+      $id_kategori = $_POST['id_kategori'];
+      $kategori = $_POST['kategori'];
+
       $mySql = "UPDATE soal SET status=0 WHERE id=? ";
         $database = new Database();
         $db = $database->getConnection();
         $stmt = $db->prepare($mySql);
-        $stmt->bindParam(1, $id); 
+        $stmt->bindParam(1, $id);
        $stmt->execute();
-       if($stmt) { 
-      
+       if($stmt) {
+
     ?>
    <div class="alert alert-success" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Ubah Status Berhasil!</strong> Soal oleh <?php echo $kategori; ?> telah di Non-Aktifkan!
 </div>
-<?php 
-    } 
-    } 
+<?php
+    }
+    }
 ?>
-           
+
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Data Pertanyaan</h1>
       <div class="row">
         <div class="col-md-10">
-         <p class="mb-4">Data Soal Pertanyaan merupakan data soal dari seluruh anggota / kader yang ada pada aplikasi ini. Data yang soalnya perlu proses verifikasi admin untuk pertanyaan peserta.</p> 
+         <p class="mb-4">Data Soal Pertanyaan merupakan data soal dari seluruh anggota / kader yang ada pada aplikasi ini. Data yang soalnya perlu proses verifikasi admin untuk pertanyaan peserta.</p>
           </div>
            <div class="col-md-2">
           <a href="#" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#tambahModal">
@@ -154,12 +154,12 @@ if(isset($_POST['Non-Aktif'])) {
         </div>
       </div>
 
-<?php include "includes/badge1.php"; ?> 
- 
- 
+<?php include "includes/badge1.php"; ?>
+
+
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
-            
+
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -173,17 +173,17 @@ if(isset($_POST['Non-Aktif'])) {
                       <th>Opsi</th>
                       </tr>
                     </tr>
-                  </thead> 
+                  </thead>
                   <tbody>
-                  
-                  <?php 
+
+                  <?php
 				 // echo $id;
 				$Sql2 = "SELECT soal.*, kategori_soal.id AS id_kategori, kategori_soal.kategori FROM soal LEFT JOIN kategori_soal ON kategori_soal.id=soal.id_kategori ORDER BY updated_at DESC ";
 				$database = new Database();
 				$db = $database->getConnection();
 				$stmt2 = $db->prepare($Sql2);
 				// $stmt2->bindParam(1, $id);
-				$stmt2->execute();  
+				$stmt2->execute();
 				$num = $stmt2->rowCount();
 				$no  = 1;
 				if($num==0){
@@ -194,22 +194,23 @@ if(isset($_POST['Non-Aktif'])) {
 					<?php
 				} else {
 					while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
-					extract($row2); 
-					if($status==1) { $statusx = 'Aktif';} 
+					extract($row2);
+					if($status==1) { $statusx = 'Aktif';}
                     else { $statusx ='Pending';}
-				?> 
+				?>
                     <tr>
-					<td><?php echo $no++; ?></td>  
+					<td><?php echo $no++; ?></td>
 					<td>
-                      <form method="POST" action="kategori_soaldetail">
-                      <input type="hidden" name="id" value="<?php echo $id_kategori; ?>" >
-                        <button type="submit"  class="btn btn-link mt-n4 mb-n4 text-left"><?php echo $kategori; ?></a></button>
-                      </form>
-                    </td>  
-					<td><?php echo $pertanyaan; ?></td>  
+            <?php echo $kategori; ?>
+            <!-- <form method="POST" action="kategori_soaldetail">
+            <input type="hidden" name="id" value="<?php echo $id_kategori; ?>" >
+              <button type="submit"  class="btn btn-link mt-n4 mb-n4 text-left"><?php echo $kategori; ?></a></button>
+            </form> -->
+          </td>
+					<td><?php echo $pertanyaan; ?></td>
 					<td><?php echo $answer; ?></td>
           <td><?php echo $statusx; ?></td>
-                <td>          
+                <td>
                 <?php if($status==1) { ?>
                          <a href="#" type="button" class="btn btn-warning btn-icon-split"  data-toggle="modal" data-target="#verifModal<?php echo $id; ?>">
               						  <span class="icon "><i class="fas fa-times"></i></span>
@@ -227,21 +228,21 @@ if(isset($_POST['Non-Aktif'])) {
             							</a>
                       </td>
                     </tr>
-            <!-- spesial edition modal edit --> 
+            <!-- spesial edition modal edit -->
             <div class="modal fade" id="editModal<?php echo $id; ?>" role="dialog">
               <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
-                <div class="modal-content"> 
+                <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="kategori_soalModalLabel">Update Data Soal <?php echo $kategori; ?></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
-                  </div> 
+                  </div>
                   <div class="modal-body">
-                  <form role="form" action="" method="post"> 
+                  <form role="form" action="" method="post">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        <input type="hidden" name="id_kategori" value="<?php echo $id_kategori; ?>"> 
+                        <input type="hidden" name="id_kategori" value="<?php echo $id_kategori; ?>">
                         <input type="hidden" name="kategori" value="<?php echo $kategori; ?>">
                   <div class="col-md-12">
                     <label for="pertanyaan" class="col-form-label">Pertanyaan</label>
@@ -271,7 +272,7 @@ if(isset($_POST['Non-Aktif'])) {
                       <label for="answer" class="col-form-label">Jawaban</label>
                       <textarea class="form-control" id="answer" name="answer"> <?php echo $answer; ?> </textarea>
                   </div>
-                          </div>  
+                          </div>
                           <div class="col-md-6">
                             <label for="status" class="col-form-label">Status Verifikasi</label>
                             <select class="form-control" name="status">
@@ -279,10 +280,10 @@ if(isset($_POST['Non-Aktif'])) {
                             <option value="0" <?php if($status==0) {echo "selected";}?> > Pending</option>
                             </select>
                           </div>
-                        <div class="modal-footer">  
+                        <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                           <button type="submit" name="Edit" class="btn btn-success">Simpan</button>
-                        </div>       
+                        </div>
                       </form>
                   </div>
                 </div>
@@ -293,26 +294,26 @@ if(isset($_POST['Non-Aktif'])) {
             <div class="modal fade" id="deleteModal<?php echo $id; ?>" role="dialog">
               <div class="modal-dialog">
                 <!-- Modal content-->
-                <div class="modal-content"> 
+                <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="kategori_soalModalLabel">Hapus Data Soal Pertanyaan <?php echo $kategori; ?></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
-                  </div> 
+                  </div>
                   <div class="modal-body">
-                    <form role="form" action="" method="post"> 
+                    <form role="form" action="" method="post">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <input type="hidden" name="id_kategori" value="<?php echo $id_kategori; ?>">
                         <input type="hidden" name="kategori" value="<?php echo $kategori; ?>">
                         <div class="form-group">
-                          Yakin menghapus data ini? data Soal akan terhapus?      
-                        </div> 
-                        
-                        <div class="modal-footer">  
+                          Yakin menghapus data ini? data Soal akan terhapus?
+                        </div>
+
+                        <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                           <button type="submit" name="Hapus" class="btn btn-success">Hapus</button>
-                        </div>      
+                        </div>
                       </form>
                   </div>
                 </div>
@@ -323,22 +324,22 @@ if(isset($_POST['Non-Aktif'])) {
             <div class="modal fade" id="verifModal<?php echo $id; ?>" role="dialog">
               <div class="modal-dialog">
                 <!-- Modal content-->
-                <div class="modal-content"> 
+                <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="anggotaModalLabel">Verifikasi Data Soal <?php echo $kategori; ?></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">×</span>
                     </button>
-                  </div> 
+                  </div>
                   <div class="modal-body">
-                    <form role="form" action="" method="post"> 
+                    <form role="form" action="" method="post">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <input type="hidden" name="id_kategori" value="<?php echo $id_kategori; ?>">
                         <input type="hidden" name="kategori" value="<?php echo $kategori; ?>">
                         <div class="form-group">
-                          yakin merubah Status Verifikasi menjadi <?php  if($status==1) { echo "Tidak "; } ?>Aktif?     
-                        </div> 
-                        
+                          yakin merubah Status Verifikasi menjadi <?php  if($status==1) { echo "Tidak "; } ?>Aktif?
+                        </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <?php  if($status==0) {
@@ -355,16 +356,16 @@ if(isset($_POST['Non-Aktif'])) {
                 </div>
               </div>
             <!-- end delete modal -->
-              
-                    <?php  } 
-                            }                    
-                    ?> 
+
+                    <?php  }
+                            }
+                    ?>
                   </tbody>
                 </table>
               </div>
             </div>
-          </div> 
-          
+          </div>
+
   <!-- Tambah Anggota Modal-->
   <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="kategori_soalModalLabel" aria-hidden="true">
   <form method="post" action="" >
@@ -383,16 +384,16 @@ if(isset($_POST['Non-Aktif'])) {
             <label for="id_kategori" class="col-form-label">Kategori Soal</label>
            <select class="form-control selectpicker" name="id_kategori" data-live-search="true">
            <option value="">--Pilih Kategori Soal--</option>
-           <?php 
+           <?php
             $mySql = "SELECT kategori_soal.* FROM kategori_soal ORDER BY updated_at DESC ";
             $database = new Database();
             $db = $database->getConnection();
-            $stmt = $db->prepare($mySql); 
-            $stmt->execute(); 
+            $stmt = $db->prepare($mySql);
+            $stmt->execute();
             while ($rowx = $stmt->fetch(PDO::FETCH_ASSOC)){
                     extract($rowx);
-            ?>                        
-            <option data-tokens="<?php echo $id; ?>" value="<?php echo $id; ?>"><?php echo $kategori; ?></option> 
+            ?>
+            <option data-tokens="<?php echo $id; ?>" value="<?php echo $id; ?>"><?php echo $kategori; ?></option>
             <?php } ?>
           </select>
           </div>
@@ -423,19 +424,19 @@ if(isset($_POST['Non-Aktif'])) {
                   </div>
                   <div class="form-group">
                       <label for="answer" class="col-form-label">Jawaban</label>
-                      <textarea class="form-control" id="answer" name="answer"> <?php echo $answer; ?> </textarea>
+                      <textarea class="form-control" id="answer" name="answer"> </textarea>
                   </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button> 
-          <button class="btn btn-success" name="Simpan" type="submit" >Simpan</button> 
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+          <button class="btn btn-success" name="Simpan" type="submit" >Simpan</button>
         </div>
       </div>
     </div>
     </form>
   </div>
 
- 
+
 <!-- Script -->
 <script type='text/javascript'>
 function previewImage() {
@@ -454,7 +455,7 @@ function previewImage() {
 <script>
   window.setTimeout(function() {
     $(".alert").fadeTo(500, 0).slideUp(500, function(){
-        $(this).remove(); 
+        $(this).remove();
     });
 }, 3000);
 </script>
