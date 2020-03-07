@@ -84,6 +84,7 @@
             <!-- <h6 class="collapse-header">Custom Components:</h6> -->
             <a class="collapse-item" href="kategorisoal">Kategori Soal</a>
             <a class="collapse-item" href="kategoriwawancara">Kategori Wawancara</a>
+            <a class="collapse-item" href="kategoriberita">Kategori Berita</a>
           </div>
         </div>
       </li>
