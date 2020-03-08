@@ -55,6 +55,10 @@ if(isset($_GET['p'])){
                 if(!file_exists ('pages/soal.php')) die ($nopage);
 				include "pages/soal.php";
 				break;
+		case 'wawancara':
+                if(!file_exists ('pages/wawancara.php')) die ($nopage);
+				include "pages/wawancara.php";
+				break;
 
 
 				//end
