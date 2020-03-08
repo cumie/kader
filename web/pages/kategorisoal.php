@@ -353,9 +353,9 @@ include "includes/badge1.php";
             <label for="opsi" class="col-form-label">Opsi</label>
             <select class="form-control selectpicker" data-live-search="true" name="opsi" id="opsi">
               <option value="">--Pilih Opsi--</option>
-              <option value="1">Opsi 1</option>
-              <option value="2">Opsi 2</option>
-              <option value="3">Opsi 3</option>
+              <option value="Internal">Internal</option>
+              <option value="Publish">Publish</option>
+              <option value="Slideshow">Slideshow</option>
             </select>
           </div>
         </div>
@@ -368,19 +368,6 @@ include "includes/badge1.php";
   </form>
 </div>
 <!-- end pendidikan -->
-
-<!-- Script -->
-<script type='text/javascript'>
-function previewImage() {
-  document.getElementById("image-preview").style.display = "block";
-  var oFReader = new FileReader();
-  oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
-
-  oFReader.onload = function(oFREvent) {
-    document.getElementById("image-preview").src = oFREvent.target.result;
-  };
-};
-</script>
 
 
 <script>
