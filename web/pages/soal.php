@@ -268,6 +268,7 @@ if(isset($_POST['Non-Aktif'])) {
                     <label for="e" class="col-form-label">E.</label>
                     <input type="text"  value="<?php echo $e; ?>"  class="form-control" id="e" name="e">
                   </div>
+		 </div>	  
                   <div class="form-group">
                       <label for="answer" class="col-form-label">Jawaban</label>
                       <textarea class="form-control" id="answer" name="answer"> <?php echo $answer; ?> </textarea>
