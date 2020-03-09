@@ -264,14 +264,19 @@ include "includes/badge1.php";
                       <form role="form" action="" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <div class="form-group row">
+                          <div class="col-md-12">
                           <label for="kategori" class="col-form-label">Kategori</label>
                           <input type="text" class="form-control" id="kategori" value="<?php echo $kategori ?>"  name="kategori">
+                          </div>
                         </div>
                         <div class="form-group row">
+                          <div class="col-md-12">
                           <label for="keterangan" class="col-form-label"> Keterangan </label>
                           <textarea class="form-control" id="keterangan" name="keterangan"><?php echo $keterangan ?></textarea>
+                          </div>
                         </div>
                         <div class="form-group row">
+                          <div class="col-md-12">
                           <label for="opsi" class="col-form-label">Opsi</label>
                           <select name="opsi" class="form-control" id="opsi">
                             <option value="">--Pilih Opsi--</option>
@@ -279,6 +284,7 @@ include "includes/badge1.php";
                             <option value="2" <?php echo $opsi=="2" ? " selected" : "" ?>>Opsi 2</option>
                             <option value="3" <?php echo $opsi=="3" ? " selected" : "" ?>>Opsi 3</option>
                           </select>
+                          </div>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -342,14 +348,19 @@ include "includes/badge1.php";
         </div>
         <div class="modal-body"><p>Tambahkan data kategori soal.</p>
           <div class="form-group row">
+            <div class="col-md-12">
             <label for="kategori" class="col-form-label">Kategori</label>
             <input type="text" class="form-control" id="kategori" value=""  name="kategori">
+            </div>
           </div>
           <div class="form-group row">
+            <div class="col-md-12">
             <label for="keterangan" class="col-form-label"> Keterangan </label>
             <textarea class="form-control" id="keterangan" name="keterangan"></textarea>
+            </div>
           </div>
           <div class="form-group row">
+            <div class="col-md-12">
             <label for="opsi" class="col-form-label">Opsi</label>
             <select class="form-control selectpicker" data-live-search="true" name="opsi" id="opsi">
               <option value="">--Pilih Opsi--</option>
@@ -357,6 +368,7 @@ include "includes/badge1.php";
               <option value="2">Opsi 2</option>
               <option value="3">Opsi 3</option>
             </select>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
