@@ -4,7 +4,7 @@ if(isset($_POST['Simpan'])) {
   // $id_pengguna = 2;
   $nama_kategori = $_POST['nama_kategori'];
   $keterangan = $_POST['keterangan'];
-  $opsi = $_POST['opsi'];
+  $publish = $_POST['publish'];
 
   $errMSG = array();
 
@@ -37,7 +37,7 @@ if(isset($_POST['Simpan'])) {
     $stmt = $db->prepare($mySql);
     $stmt->bindParam(1, $nama_kategori);
     $stmt->bindParam(2, $keterangan);
-    $stmt->bindParam(3, $opsi);
+    $stmt->bindParam(3, $publish);
     $stmt->execute();
     if($stmt) {
       ?>
@@ -62,7 +62,7 @@ if(isset($_POST['Edit'])) {
 
   $nama_kategori = $_POST['nama_kategori'];
   $keterangan = $_POST['keterangan'];
-  $opsi = $_POST['opsi'];
+  $publish = $_POST['publish'];
 
   $errMSG = array();
 
@@ -97,7 +97,7 @@ if(isset($_POST['Edit'])) {
     $stmt = $db->prepare($mySql);
     $stmt->bindParam(1, $nama_kategori);
     $stmt->bindParam(2, $keterangan);
-    $stmt->bindParam(3, $opsi);
+    $stmt->bindParam(3, $publish);
     $stmt->bindParam(4, $id);
     $stmt->execute();
     if($stmt) {
@@ -198,10 +198,10 @@ include "includes/badge1.php";
                 <td><?php echo $keterangan; ?></td>
                 <td>
                   <?php
-                    if ($opsi==0) {
+                    if ($publish==0) {
                       echo "Draft";
                     }
-                    elseif ($opsi==1) {
+                    elseif ($publish==1) {
                       echo "Publish";
                     }
                     else {
@@ -234,20 +234,26 @@ include "includes/badge1.php";
                       <form role="form" action="" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <div class="form-group row">
-                          <label for="nama_kategori" class="col-form-label">Kategori</label>
-                          <input type="text" class="form-control" id="nama_kategori" value="<?php echo $nama_kategori ?>"  name="nama_kategori">
+                          <div class="col-md-12">
+                            <label for="nama_kategori" class="col-form-label">Kategori</label>
+                            <input type="text" class="form-control" id="nama_kategori" value="<?php echo $nama_kategori ?>"  name="nama_kategori">
+                          </div>
                         </div>
                         <div class="form-group row">
+                          <div class="col-md-12">
                           <label for="keterangan" class="col-form-label"> Keterangan </label>
                           <textarea class="form-control" id="keterangan" name="keterangan"><?php echo $keterangan ?></textarea>
+                          </div>
                         </div>
                         <div class="form-group row">
-                          <label for="opsi" class="col-form-label">Publish</label>
-                          <select name="opsi" class="form-control" id="opsi">
-                            <option value="">--Pilih Opsi Publish--</option>
-                            <option value="0" <?php echo $opsi=="0" ? " selected" : "" ?>>Draft</option>
-                            <option value="1" <?php echo $opsi=="1" ? " selected" : "" ?>>Publish</option>
+                          <div class="col-md-12">
+                          <label for="publish" class="col-form-label">Publish</label>
+                          <select name="publish" class="form-control" id="publish">
+                            <option value="">--Pilih publish Publish--</option>
+                            <option value="0" <?php echo $publish=="0" ? " selected" : "" ?>>Draft</option>
+                            <option value="1" <?php echo $publish=="1" ? " selected" : "" ?>>Publish</option>
                           </select>
+                          </div>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -311,20 +317,26 @@ include "includes/badge1.php";
         </div>
         <div class="modal-body"><p>Tambahkan data nama_kategori soal.</p>
           <div class="form-group row">
+            <div class="col-md-12">
             <label for="nama_kategori" class="col-form-label">Kategori</label>
             <input type="text" class="form-control" id="nama_kategori" value=""  name="nama_kategori">
+            </div>
           </div>
           <div class="form-group row">
+            <div class="col-md-12">
             <label for="keterangan" class="col-form-label"> Keterangan </label>
             <textarea class="form-control" id="keterangan" name="keterangan"></textarea>
+            </div>
           </div>
           <div class="form-group row">
-            <label for="opsi" class="col-form-label">Publish</label>
-            <select class="form-control selectpicker" data-live-search="true" name="opsi" id="opsi">
-              <option value="">--Pilih Opsi Publish--</option>
+            <div class="col-md-12">
+            <label for="publish" class="col-form-label">Publish</label>
+            <select class="form-control selectpicker" data-live-search="true" name="publish" id="publish">
+              <option value="">--Pilih publish Publish--</option>
               <option value="0">Draft</option>
               <option value="1">Publish</option>
             </select>
+            </div>
           </div>
         </div>
         <div class="modal-footer">

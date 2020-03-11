@@ -228,18 +228,25 @@ include "includes/badge1.php";
                       <form role="form" action="" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <div class="form-group row">
+                          <div class="col-md-12">
                           <label for="nama_kategori" class="col-form-label">Kategori</label>
                           <input type="text" class="form-control" id="nama_kategori" value="<?php echo $nama_kategori ?>"  name="nama_kategori">
+                          </div>
                         </div>
                         <div class="form-group row">
+                          <div class="col-md-12">
                           <label for="bobot" class="col-form-label">Bobot</label>
                           <input type="number" step="0.01" class="form-control" id="bobot" value="<?php echo $bobot ?>"  name="bobot">
+                          </div>
                         </div>
                         <div class="form-group row">
+                          <div class="col-md-12">
                           <label for="keterangan" class="col-form-label"> Keterangan </label>
                           <textarea class="form-control" id="keterangan" name="keterangan"><?php echo $keterangan ?></textarea>
+                          </div>
                         </div>
                         <div class="form-group row">
+                          <div class="col-md-12">
                           <label for="opsi" class="col-form-label">Opsi</label>
                           <select name="opsi" class="form-control" id="opsi">
                             <option value="">--Pilih Opsi--</option>
@@ -247,6 +254,7 @@ include "includes/badge1.php";
                             <option value="2" <?php echo $opsi=="2" ? " selected" : "" ?>>Opsi 2</option>
                             <option value="3" <?php echo $opsi=="3" ? " selected" : "" ?>>Opsi 3</option>
                           </select>
+                          </div>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -310,18 +318,25 @@ include "includes/badge1.php";
         </div>
         <div class="modal-body"><p>Tambahkan data nama_kategori soal.</p>
           <div class="form-group row">
+            <div class="col-md-12">
             <label for="nama_kategori" class="col-form-label">Kategori</label>
             <input type="text" class="form-control" id="nama_kategori" value=""  name="nama_kategori">
+            </div>
           </div>
           <div class="form-group row">
+            <div class="col-md-12">
             <label for="bobot" class="col-form-label">Bobot</label>
             <input type="number" class="form-control" id="bobot" value=""  name="bobot" step="0.01">
+            </div>
           </div>
           <div class="form-group row">
+            <div class="col-md-12">
             <label for="keterangan" class="col-form-label"> Keterangan </label>
             <textarea class="form-control" id="keterangan" name="keterangan"></textarea>
+            </div>
           </div>
           <div class="form-group row">
+            <div class="col-md-12">
             <label for="opsi" class="col-form-label">Opsi</label>
             <select class="form-control selectpicker" data-live-search="true" name="opsi" id="opsi">
               <option value="">--Pilih Opsi--</option>
@@ -329,6 +344,7 @@ include "includes/badge1.php";
               <option value="2">Opsi 2</option>
               <option value="3">Opsi 3</option>
             </select>
+            </div>
           </div>
         </div>
         <div class="modal-footer">

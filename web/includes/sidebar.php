@@ -56,17 +56,22 @@
           <i class="fas fa-fw fa-archive"></i>
           <span>Keterampilan</span></a>
       </li>
-	<!-- Nav Item - Tables -->
+	    <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="soal">
           <i class="fas fa-fw fa-list"></i>
           <span>Soal</span></a>
-      </li>
+      </li> 
 	<!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="wawancara">
           <i class="fas fa-fw fa-list"></i>
-          <span>Wawancara</span></a>
+          <span>Wawancara</span></a> 
+	    <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="tertulis">
+          <i class="fas fa-fw fa-list"></i>
+          <span>Tertulis</span></a> 
       </li>
 
 
