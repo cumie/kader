@@ -12,7 +12,7 @@ function logoutConfirmation () {
     },
     callback: function (result) {
       if(result)
-        window.location.replace("pages/account/login.php");
+        window.location.replace("login.php");
     }
   });
 }

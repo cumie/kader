@@ -27,6 +27,7 @@
 
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
 
   <!-- =======================================================
     Theme Name: eStartup
@@ -42,7 +43,7 @@
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <h1><a href="#body" class="scrollto"><span>Banjarkab</span>PMII</a></h1>
+        <h1><a href="./" class="scrollto"><span>Banjarkab</span>PMII</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
       </div>
@@ -50,9 +51,10 @@
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <li class="menu-active"><a href="#hero">beranda</a></li>
+          <li><a href="#register">Gabung</a></li> 
           <li><a href="#about-us">Tentang Kami</a></li>
-          <li><a href="#features">Affiliasi</a></li> 
-          <li><a href="#team">Team</a></li> 
+          <li><a href="#afiliasi">Afiliasi</a></li> 
+          <li><a href="#team">Panitia</a></li> 
           <!-- <li class="menu-has-children"><a href="">Drop Down</a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
@@ -63,7 +65,7 @@
           </li> -->
           <li><a href="#blog">Berita</a></li>
           <li><a href="#contact">Hubungi Kami</a></li>
-          <li><a href="login.html">Login</a></li>
+          <li><a href="login.php">Login</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
@@ -77,7 +79,7 @@
       <h1>Selamat Datang Pemuda Indonesia</h1>
       <h2>Mari bergerak memajukan tanah banjar dengan nilai islami</h2>
       <img src="img/layar-pmii.png" alt="PMII Layar">
-      <a href="#get-started" class="btn-get-started scrollto">Bergabung Segera!</a>
+      <a href="#register" class="btn-get-started scrollto">Bergabung Segera!</a>
      <!-- <div class="btns">
         <a href="#"><i class="fa fa-apple fa-3x"></i> App Store</a>
         <a href="#"><i class="fa fa-play fa-3x"></i> Google Play</a>
@@ -89,7 +91,7 @@
   <!--==========================
     Get Started Section
   ============================-->
-  <section id="get-started" class="padd-section text-center wow fadeInUp">
+  <section id="register" class="padd-section text-center wow fadeInUp">
 
     <div class="container">
       <div class="section-title text-center">
@@ -110,7 +112,8 @@
           <div class="col-lg-7">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Buat Akun Registerasi</h1>
+                <h1 class="h4 text-gray-900 mb-4">Registerasi & Buat Akun Anda</h1>
+                <p>Dengan melakukan registerasi berarti Anda mengajukan diri untuk bergabung dalam keanggotaan PMII kab. Banjar</p>
               </div>
               <form class="user" id="sign_up" method="POST">
                 <div class="form-group">
@@ -134,7 +137,7 @@
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="forgot-password.html">Lupa Password?</a>
+                <a class="small" href="#">Lupa Password?</a>
               </div>
               <div class="text-center">
                 <a class="small" href="login.php">Sudah memiliki akun? Login disini!</a>
@@ -183,10 +186,10 @@
   </section>
 
   <!--==========================
-    Features Section
+    afiliasi Section
   ============================-->
 
-  <section id="features" class="padd-section text-center wow fadeInUp">
+  <section id="afiliasi" class="padd-section text-center wow fadeInUp">
 
     <div class="container">
       <div class="section-title text-center">
@@ -330,75 +333,7 @@
       </div>
     </div>
   </section>
-
-
-  <!--==========================
-    Testimonials Section
-  ============================- 
-
-  <section id="testimonials" class="padd-section text-center wow fadeInUp">
-    <div class="container">
-      <div class="row justify-content-center">
-
-        <div class="col-md-8">
-
-          <div class="testimonials-content">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-
-              <div class="carousel-inner" role="listbox">
-
-                <div class="carousel-item  active">
-                  <div class="top-top">
-
-                    <h2>Our Users Speack volumes us</h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
-                      specimen book. It has survived not only five centuries.</p>
-                    <h4>Kimberly Tran<span>manager</span></h4>
-
-                  </div>
-                </div>
-
-                <div class="carousel-item ">
-                  <div class="top-top">
-
-                    <h2>Our Users Speack volumes us</h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
-                      specimen book. It has survived not only five centuries.</p>
-                    <h4>Henderson<span>manager</span></h4>
-
-                  </div>
-                </div>
-
-                <div class="carousel-item ">
-                  <div class="top-top">
-
-                    <h2>Our Users Speack volumes us</h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
-                      specimen book. It has survived not only five centuries.</p>
-                    <h4>David Spark<span>manager</span></h4>
-
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="btm-btm">
-
-                <ul class="list-unstyled carousel-indicators">
-                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                  <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                  <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                </ul>
-
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
+ 
  
   <!--==========================
     Blog Section
@@ -452,38 +387,7 @@
 
       </div>
     </div>
-  </section>
-
-  <!--==========================
-    Newsletter Section
-  ============================ 
-  <section id="newsletter" class="newsletter text-center wow fadeInUp">
-    <div class="overlay padd-section">
-      <div class="container">
-
-        <div class="row justify-content-center">
-          <div class="col-md-9 col-lg-6">
-            <form class="form-inline" method="POST" action="#">
-
-              <input type="email" class="form-control " placeholder="Email Adress" name="email">
-              <button type="submit" class="btn btn-default"><i class="fa fa-location-arrow"></i>Subscribe</button>
-
-            </form>
-
-          </div>
-        </div>
-
-          <ul class="list-unstyled">
-            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-          </ul>
-
-
-      </div>
-    </div>
-  </section>
+  </section> 
 
   <!--==========================
     Contact Section
@@ -583,7 +487,7 @@
 
             <ul class="list-unstyled">
               <li><a href="#">About us</a></li>
-              <li><a href="#">Features item</a></li>
+              <li><a href="#">afiliasi item</a></li>
               <li><a href="#">Live streaming</a></li>
               <li><a href="#">Privacy Policy</a></li>
             </ul>
@@ -598,7 +502,7 @@
 
             <ul class="list-unstyled">
               <li><a href="#">About us</a></li>
-              <li><a href="#">Features item</a></li>
+              <li><a href="#">afiliasi item</a></li>
               <li><a href="#">Live streaming</a></li>
               <li><a href="#">Privacy Policy</a></li>
             </ul>
@@ -628,7 +532,7 @@
 
             <ul class="list-unstyled">
               <li><a href="#">About us</a></li>
-              <li><a href="#">Features item</a></li>
+              <li><a href="#">afiliasi item</a></li>
               <li><a href="#">Live streaming</a></li>
               <li><a href="#">Privacy Policy</a></li>
             </ul>
@@ -643,7 +547,7 @@
 
     <div class="copyrights">
       <div class="container">
-        <p>&copy; Copyrights Universitas Islam Kalimantan Muhammad Arsyad Al Banjari</p>
+        <p>2020 &copy; Universitas Islam Kalimantan Muhammad Arsyad Al Banjari</p>
         <div class="credits"> 
           Redesigned by <a href="https://teknobara.co.id/">nKIT</a>
         </div>
@@ -671,6 +575,8 @@
 
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
+  <script src="js/lib.js"></script>
+  <script src="js/pages/register.js"></script>
 
 </body>
 </html>

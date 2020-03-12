@@ -7,7 +7,7 @@ if(isset($_GET['p'])){
 			 case '' :
                 if(!file_exists ('pages/main.php')) die ($nopage);
                 include 'pages/main.php';
-				break;
+				break; 
 			case 'test':
 				include "pages/test.php";
 				break;

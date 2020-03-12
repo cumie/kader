@@ -27,6 +27,7 @@
 
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
 
   <!-- =======================================================
     Theme Name: eStartup
@@ -42,20 +43,19 @@
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <h1><a href="#body" class="scrollto"><span>Banjarkab</span>PMII</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
+        <h1><a href="./" class="scrollto"><span>Banjarkab</span>PMII</a></h1> 
       </div>
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li class="menu-active"><a href="rusak.html#hero">beranda</a></li>
-          <li><a href="rusak.html#about-us">Tentang Kami</a></li>
-          <li><a href="rusak.html##features">Affiliasi</a></li> 
-          <li><a href="rusak.html##team">Team</a></li> 
-          <li><a href="rusak.html##blog">Berita</a></li>
-          <li><a href="rusak.html##contact">Hubungi Kami</a></li>
-          <li><a href="login.html">Login</a></li>
+          <li class="menu-active"><a href="beranda.php#hero">beranda</a></li>
+          <li><a href="#register">Gabung</a></li> 
+          <li><a href="beranda.php#about-us">Tentang Kami</a></li>
+          <li><a href="#afiliasi">Afiliasi</a></li> 
+          <li><a href="#team">Panitia</a></li> 
+          <li><a href="beranda.php##blog">Berita</a></li>
+          <li><a href="beranda.php##contact">Hubungi Kami</a></li>
+          <li><a href="login.php">Login</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
@@ -101,10 +101,10 @@
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="forgot-password.html">Lupa Password?</a>
+                    <a class="small" href="#">Lupa Password?</a>
                   </div>
                   <div class="text-center">
-                    <a class="small" href="register.php">Bergabung dan buat Akun baru!</a>
+                    <a class="small" href="beranda.php#register">Bergabung dan buat Akun baru!</a>
                   </div>
                 </div>
               </div>
@@ -131,7 +131,7 @@
 
     <div class="copyrights">
       <div class="container">
-        <p>&copy; Copyrights Universitas Islam Kalimantan Muhammad Arsyad Al Banjari</p>
+        <p>2020 &copy; PKM Universitas Islam Kalimantan Muhammad Arsyad Al Banjari</p>
         <div class="credits"> 
           Redesigned by <a href="https://teknobara.co.id/">nKIT</a>
         </div>
@@ -160,5 +160,8 @@
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
 
+  <script src="js/lib.js"></script>
+  <script src="js/pages/login.js"></script>
+  
 </body>
 </html>
